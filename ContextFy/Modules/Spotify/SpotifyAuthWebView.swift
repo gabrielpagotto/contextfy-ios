@@ -16,9 +16,11 @@ struct AuthResult {
 
 class SpotifyAuthWebUIViewController: UIViewController {
     let onResult: (_ result: AuthResult) -> Void
+    let spotifyService: SpotifyService
     
-    init(onResult: @escaping (_: AuthResult) -> Void) {
+    init(spotifyService: SpotifyService, onResult: @escaping (_: AuthResult) -> Void) {
         self.onResult = onResult
+        self.spotifyService = spotifyService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,7 +29,7 @@ class SpotifyAuthWebUIViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        guard let urlRequest = SpotifyService.shared.getAccessTokenUrl() else {
+        guard let urlRequest = spotifyService.getAccessTokenUrl() else {
             return
         }
         let webView = WKWebView()
@@ -40,7 +42,7 @@ class SpotifyAuthWebUIViewController: UIViewController {
 extension SpotifyAuthWebUIViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         guard let url = webView.url else { return }
-        if url.absoluteString.starts(with: SpotifyConstants.redirectURI) { 
+        if url.absoluteString.starts(with: SpotifyConstants.redirectURI) {
             let accessToken = extractAccessToken(url)
             let authResult = AuthResult(accessToken: accessToken)
             onResult(authResult)
@@ -61,10 +63,11 @@ extension SpotifyAuthWebUIViewController: WKNavigationDelegate {
 }
 
 struct SpotifyAuthWebView: UIViewControllerRepresentable {
+    let spotifyService: SpotifyService
     let onResult: (_ result: AuthResult) -> Void
     
     func makeUIViewController(context: Context) -> SpotifyAuthWebUIViewController {
-        return SpotifyAuthWebUIViewController(onResult: onResult)
+        return SpotifyAuthWebUIViewController(spotifyService: spotifyService, onResult: onResult)
     }
     
     func updateUIViewController(_ uiViewController: SpotifyAuthWebUIViewController, context: Context) {

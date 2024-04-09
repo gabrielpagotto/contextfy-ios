@@ -12,6 +12,7 @@ struct ContextFyApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(SpotifyService())
         }
     }
 }
