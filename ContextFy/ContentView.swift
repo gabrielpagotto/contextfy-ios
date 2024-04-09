@@ -48,14 +48,6 @@ struct ContentView: View {
             })
         }
     }
-    
-    private func getAccessTokenFromWebView() {
-        guard let urlRequest = SpotifyService.shared.getAccessTokenUrl() else { return }
-        let webview = WKWebView()
-        
-        webview.load(urlRequest)
-        
-    }
 }
 
 #Preview {
