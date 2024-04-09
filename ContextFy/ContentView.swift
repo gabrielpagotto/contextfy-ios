@@ -6,16 +6,55 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct ContentView: View {
+    @State private var authIsPresented = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                Button {
+                    authIsPresented = true
+                } label: {
+                    Text("Entrar com spotify")
+                }
+            }
+            .padding()
+            .navigationTitle("ContextFy")
+            .sheet(isPresented: $authIsPresented, content: {
+                NavigationView {
+                    SpotifyAuthWebView() { result in
+                        authIsPresented = false
+                        guard let accessToken = result.accessToken else {
+                            return
+                        }
+                        
+                        // User is authenticated
+                        print(result.accessToken!)
+                    }
+                    .navigationTitle("Entrar com spotify")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button {
+                                authIsPresented = false
+                            } label: {
+                                Text("Cancelar")
+                            }
+                        }
+                    }
+                }
+            })
         }
-        .padding()
+    }
+    
+    private func getAccessTokenFromWebView() {
+        guard let urlRequest = SpotifyService.shared.getAccessTokenUrl() else { return }
+        let webview = WKWebView()
+        
+        webview.load(urlRequest)
+        
     }
 }
 
