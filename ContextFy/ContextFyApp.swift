@@ -13,6 +13,13 @@ struct ContextFyApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(SpotifyService())
+                .preferredColorScheme(.dark)
+            
+                // This fix the dialogs foreground and background colors
+                .onAppear {
+                    UIView.appearance().tintColor = UIColor(named: "AccentColor")
+                    UIView.appearance().backgroundColor = UIColor(named: "BackgroundColor")
+                }
         }
     }
 }

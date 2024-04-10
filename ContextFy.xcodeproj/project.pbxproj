@@ -21,6 +21,7 @@
 		E41A8C592BC5F86400FBD971 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A8C582BC5F86400FBD971 /* ContainerView.swift */; };
 		E41A8C5C2BC5F93300FBD971 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A8C5B2BC5F93300FBD971 /* AccountView.swift */; };
 		E41A8C5F2BC5FA0300FBD971 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A8C5E2BC5FA0300FBD971 /* HomeView.swift */; };
+		E41A8C642BC616B400FBD971 /* CachedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41A8C632BC616B400FBD971 /* CachedImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		E41A8C582BC5F86400FBD971 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		E41A8C5B2BC5F93300FBD971 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		E41A8C5E2BC5FA0300FBD971 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E41A8C632BC616B400FBD971 /* CachedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		E41A8C352BC5ADDA00FBD971 /* ContextFy */ = {
 			isa = PBXGroup;
 			children = (
+				E41A8C622BC616A200FBD971 /* SharedViews */,
 				E41A8C512BC5D59700FBD971 /* Core */,
 				E41A8C4C2BC5CEB900FBD971 /* Modules */,
 				E41A8C362BC5ADDA00FBD971 /* ContextFyApp.swift */,
@@ -153,6 +156,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		E41A8C622BC616A200FBD971 /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				E41A8C632BC616B400FBD971 /* CachedImageView.swift */,
+			);
+			path = SharedViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,6 +243,7 @@
 				E41A8C472BC5B6C300FBD971 /* SpotifyError.swift in Sources */,
 				E41A8C372BC5ADDA00FBD971 /* ContextFyApp.swift in Sources */,
 				E41A8C452BC5B4EE00FBD971 /* SpotifyConstants.swift in Sources */,
+				E41A8C642BC616B400FBD971 /* CachedImageView.swift in Sources */,
 				E41A8C5F2BC5FA0300FBD971 /* HomeView.swift in Sources */,
 				E41A8C562BC5F38800FBD971 /* AuthView.swift in Sources */,
 				E41A8C5C2BC5F93300FBD971 /* AccountView.swift in Sources */,

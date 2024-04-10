@@ -12,11 +12,11 @@ struct ContainerView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Início", systemImage: "home")
+                    Label("Início", systemImage: "house")
                 }
             AccountView()
                 .tabItem {
-                    Label("Configurações", systemImage: "gear")
+                    Label("Minha conta", systemImage: "person.crop.circle")
                 }
         }
     }

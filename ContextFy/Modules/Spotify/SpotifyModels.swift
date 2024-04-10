@@ -13,4 +13,11 @@ struct SpotifyProfile: Codable {
     let href: String
     let type: String
     let uri: String
+    let images: [SpotifyImage]
+}
+
+struct SpotifyImage: Codable {
+    let url: String
+    let height: Int
+    let width: Int
 }
