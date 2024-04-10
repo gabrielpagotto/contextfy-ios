@@ -7,27 +7,47 @@
 
 import SwiftUI
 
+// Temp
+private struct Music: Identifiable {
+    let id = UUID()
+    let title: String
+    let artist: String
+}
+
 struct HomeView: View {
+    
+    // Temp
+    private var playlist: [Music] {
+        var songs: [Music] = []
+        for i in 1...50 {
+            songs.append(Music(title: "Song \(i)", artist: "Artist \(i)"))
+        }
+        return songs
+    }
+    
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Você está autenticado")
-                    .padding()
-                Button {
-                    
-                } label: {
-                    Text("Printar Token de Accesso")
+            List {
+                Section() {
+                    Label("Recomendações de música para o contexto atual", systemImage: "beats.headphones")
+                        .bold()
+                        .font(.title3)
+                        .padding(.leading)
+                }
+                
+                ForEach(playlist) { song in
+                    Label(
+                        title: { HStack { 
+                            Text(song.title)
+                            Spacer()
+                            Text(song.artist)
+                                .foregroundStyle(.secondary)
+                        } },
+                        icon: { Image(systemName: "music.note") }
+                    )
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    Button(role: .destructive) {
-//                        self.accessToken = ""
-                    } label: {
-                        Text("Sair da aplicação")
-                    }
-                }
-            }
+            .navigationTitle("ContextFy")
         }
     }
 }

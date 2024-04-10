@@ -12,7 +12,7 @@ struct ContainerView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Início", systemImage: "house")
+                    Label("Início", systemImage: "music.note.house")
                 }
             AccountView()
                 .tabItem {

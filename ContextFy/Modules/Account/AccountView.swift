@@ -35,6 +35,24 @@ struct AccountView: View {
                     }
                 }
                 
+                Section {
+                    NavigationLink {
+                        Text("Preferências do usuário")
+                    } label: {
+                        Label("Preferências do usuário", systemImage: "bolt.heart")
+                    }
+                    NavigationLink {
+                        Text("Playlists")
+                    } label: {
+                        Label("Playlists", systemImage: "music.quarternote.3")
+                    }
+                    NavigationLink {
+                        Text("Meus locais")
+                    } label: {
+                        Label("Meus locais", systemImage: "location.viewfinder")
+                    }
+                }
+                
                 // Logout button
                 Button(role: .destructive) {
                     logoutConfirmationIsPresented = true
