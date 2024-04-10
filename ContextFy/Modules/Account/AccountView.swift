@@ -9,9 +9,8 @@ import SwiftUI
 
 struct AccountView: View {
     @AppStorage("spotify.access_token") private var accessToken = ""
-    @AppStorage("spotify.display_name") private var displayName = "Gabrielpagotto"
-    @AppStorage("spotify.image_url") private var imageUrl = "https://i.scdn.co/image/ab6775700000ee85738ff1803e5580a93e7a254f"
-    //    @AppStorage("spotify.image_url") private var imageUrl = ""
+    @AppStorage("spotify.display_name") private var displayName = ""
+    @AppStorage("spotify.image_url") private var imageUrl = ""
     
     @State private var logoutConfirmationIsPresented = false
     
@@ -52,10 +51,10 @@ struct AccountView: View {
     }
     
     private func logout() {
-        accessToken = ""
-        displayName = ""
-        imageUrl = ""
         logoutConfirmationIsPresented = false
+        UserDefaults.standard.removeObject(forKey: "spotify.access_token")
+        UserDefaults.standard.removeObject(forKey: "spotify.display_name")
+        UserDefaults.standard.removeObject(forKey: "spotify.image_url")
     }
 }
 
