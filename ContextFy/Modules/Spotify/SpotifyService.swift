@@ -42,4 +42,5 @@ class SpotifyService: ObservableObject {
     func getProfile() throws -> SpotifyProfile {
         return try client.get("/v1/me")
     }
+    
 }
