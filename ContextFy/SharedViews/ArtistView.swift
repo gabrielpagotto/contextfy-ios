@@ -22,5 +22,5 @@ struct ArtistView: View {
 }
 
 #Preview {
-    ArtistView(name: "Europe", imageUrl: "https://i.scdn.co/image/ab67616d0000b2732d925cec3072ed1b74e5188f")
+    ArtistView(name: "Milionário e José Rico", imageUrl: "https://i.scdn.co/image/ab6761610000e5eb26c5c8d56a8979c644f37de7")
 }

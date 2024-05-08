@@ -12,6 +12,7 @@ struct TrackView: View {
     let artistName: String
     let albumName: String
     let albumImageUrl: String
+    let playing: Bool
     
     var body: some View {
         HStack {
@@ -23,14 +24,15 @@ struct TrackView: View {
                 HStack {
                     Text("\(artistName) - \(albumName)")
                         .foregroundColor(.secondary)
+                        .font(.subheadline)
                 }
             }
             Spacer()
             Button {
                 
             } label: {
-                Image(systemName: "play.circle")
-                    .foregroundColor(.accentColor)
+                Image(systemName: playing ? "pause.circle" : "play.circle")
+                    .foregroundColor(playing ? .primary : .accentColor)
                     .font(.system(size: 32))
                     .padding(.leading, 20)
             }
@@ -40,9 +42,10 @@ struct TrackView: View {
 
 #Preview {
     TrackView(
-        name: "The Final Countdown",
-        artistName: "Europe",
-        albumName: "The Final Countdown",
-        albumImageUrl: "https://i.scdn.co/image/ab67616d0000b2732d925cec3072ed1b74e5188f"
+        name: "Decida",
+        artistName: "Milionário e José Rico",
+        albumName: "Atravessando Gerações",
+        albumImageUrl: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e",
+        playing: false
     )
 }

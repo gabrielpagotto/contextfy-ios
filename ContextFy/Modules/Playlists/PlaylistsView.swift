@@ -1,50 +1,50 @@
 //
-//  UserPreferencesView.swift
+//  PlaylistsView.swift
 //  ContextFy
 //
-//  Created by Gabriel Pagotto on 15/04/24.
+//  Created by Gabriel Pagotto on 07/05/24.
 //
 
 import SwiftUI
 
-struct UserPreferencesView: View {
+struct PlaylistsView: View {
     @State private var search = ""
-    @State private var selectArtistIsPresented = false
+    @State private var selectPlaylistIsPresented = false
     
     var body: some View {
         List {
             ForEach(0..<50) { i in
-                ArtistView(name: "Milionário e José Rico", imageUrl: "https://i.scdn.co/image/ab6761610000e5eb26c5c8d56a8979c644f37de7")
-            }.onDelete(perform: { indexSet in
-                // TODO: Implement delete
+                PlaylistItemView(name: "MILIONARIO E JOSÉ RICO | SUCESSOS", imageUrl: "https://mosaic.scdn.co/640/ab67616d0000b27374fcb49f126bf1dbbefe378eab67616d0000b27375fffda7883387b150c5660cab67616d0000b273b9a06700ccb7ea47d24c1657ab67616d0000b273ed96587b9a84f44f2f115a2e")
+            }
+            .onDelete(perform: { indexSet in
             })
         }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button {
-                    selectArtistIsPresented = true
+                    selectPlaylistIsPresented = true
                 } label: {
                     Text("Selecionar")
                 }
             }
             
         }
-        .navigationTitle("Preferências do usuário")
+        .sheet(isPresented: $selectPlaylistIsPresented) {
+            SelectPlaylistView()
+        }
+        .navigationTitle("Playlists")
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $search)
-        .sheet(isPresented: $selectArtistIsPresented) {
-            SelectArtistView()
-        }
     }
 }
 
 #Preview {
     NavigationView {
-        UserPreferencesView()
+        PlaylistsView()
     }
 }
 
-struct SelectArtistView: View {
+struct SelectPlaylistView: View {
     @State private var search = ""
     
     @Environment(\.dismiss) private var dismiss
@@ -53,7 +53,7 @@ struct SelectArtistView: View {
         NavigationView {
             List {
                 ForEach(0..<50) { i in
-                    ArtistView(name: "Milionário e José Rico", imageUrl: "https://i.scdn.co/image/ab6761610000e5eb26c5c8d56a8979c644f37de7")
+                    PlaylistItemView(name: "MILIONARIO E JOSÉ RICO | SUCESSOS", imageUrl: "https://mosaic.scdn.co/640/ab67616d0000b27374fcb49f126bf1dbbefe378eab67616d0000b27375fffda7883387b150c5660cab67616d0000b273b9a06700ccb7ea47d24c1657ab67616d0000b273ed96587b9a84f44f2f115a2e")
                 }
             }
             .toolbar {
@@ -65,7 +65,7 @@ struct SelectArtistView: View {
                     }
                 }
             }
-            .navigationTitle("Selecionar artista")
+            .navigationTitle("Selecionar playlist")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $search)
         }

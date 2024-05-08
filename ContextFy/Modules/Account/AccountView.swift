@@ -37,19 +37,19 @@ struct AccountView: View {
                 
                 Section {
                     NavigationLink {
-                        Text("Preferências do usuário")
+                        UserPreferencesView()
                     } label: {
                         Label("Preferências do usuário", systemImage: "bolt.heart")
                     }
                     NavigationLink {
-                        Text("Playlists")
+                        PlaylistsView()
                     } label: {
                         Label("Playlists", systemImage: "music.quarternote.3")
                     }
                     NavigationLink {
-                        Text("Meus locais")
+                        ContextsView()
                     } label: {
-                        Label("Meus locais", systemImage: "location.viewfinder")
+                        Label("Meus contextos", systemImage: "location.viewfinder")
                     }
                 }
                 
