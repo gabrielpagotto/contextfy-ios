@@ -1,33 +1,32 @@
 //
-//  FirstArtistSelectionView.swift
+//  FirstGenderSelectionView.swift
 //  ContextFy
 //
-//  Created by Gabriel Pagotto on 07/05/24.
+//  Created by Gabriel Pagotto on 14/05/24.
 //
 
 import SwiftUI
 
-struct FirstArtistSelectionView: View {
+struct FirstGenderSelectionView: View {
     @Environment(\.dismiss) private var dismiss
     
     
     @State private var searchText = ""
-    @State private var multiSelection = Set<Int>()
+    @State private var multiSelection = Set<String>()
     
     
     var body: some View {
-        List(0..<10, id: \.self, selection: $multiSelection) { index in
-            ArtistView(name: "Milionário e José Rico", imageUrl: "https://i.scdn.co/image/ab6761610000e5eb26c5c8d56a8979c644f37de7")
+        List(Constants.musicalGenders, id: \.self, selection: $multiSelection) {
+            Text($0)
         }
-        .navigationTitle("Artistas")
+        .navigationTitle("Gêneros")
         .navigationBarTitleDisplayMode(.inline)
-        .searchable(text: $searchText)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button {
-                    dismiss()
+                NavigationLink {
+                    FirstArtistSelectionView()
                 } label: {
-                    Text("Concluir")
+                    Text("Próximo")
                         .bold()
                 }
                 .disabled(multiSelection.count < 3)
@@ -35,7 +34,7 @@ struct FirstArtistSelectionView: View {
             ToolbarItem(placement: .bottomBar) {
                 VStack {
                     Text("\(multiSelection.count) selecionados")
-                    Text("Selecione ao menos 3 artistas para continuar.")
+                    Text("Selecione ao menos 3 gêneros para continuar.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -48,6 +47,6 @@ struct FirstArtistSelectionView: View {
 
 #Preview {
     NavigationView {
-        FirstArtistSelectionView()
+        FirstGenderSelectionView()
     }
 }

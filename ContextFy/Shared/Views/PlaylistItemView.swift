@@ -15,6 +15,7 @@ struct PlaylistItemView: View {
         HStack {
             CachedImageView(urlString: imageUrl)
                 .frame(width: 60, height: 60)
+                .cornerRadius(Constants.defaultCornerRadius)
             Text(name)
             Spacer()
         }

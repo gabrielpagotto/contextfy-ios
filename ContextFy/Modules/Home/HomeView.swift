@@ -10,8 +10,10 @@ import SwiftUI
 struct HomeView: View {
     @State private var firstArtistSelectionIsPresented = false
     @State private var addNewContextIsPresented = false
-    @State private var rateTrackIsPresented = true
     @State private var newContextName = ""
+    @State private var playerIsPresented = false
+    
+    @State private var playingIndex: Int? = nil
     
     var body: some View {
         NavigationView {
@@ -28,44 +30,85 @@ struct HomeView: View {
                         name: "Decida",
                         artistName: "Milionário e José Rico",
                         albumName: "Atravessando Gerações",
-                        albumImageUrl: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e", playing: i == 1)
+                        albumImageUrl: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e", playing: i == playingIndex,
+                        onPlayPressed: {
+                            if playingIndex == i {
+                                playingIndex = nil
+                            } else {
+                                playingIndex = i
+                            }
+                        }
+                    )
                 }
             }
             .navigationTitle("ContextFy")
-            .alert("Novo contexto detectado",  isPresented: $addNewContextIsPresented) {
-                TextField("Nome", text: $newContextName)
-                Button {
-                } label: {
-                    Text("Adicionar")
-                        .bold()
+            .toolbar {
+                if playingIndex != nil {
+                    ToolbarItem(placement: .bottomBar) {
+                        HStack(alignment: .top) {
+                            CachedImageView(urlString: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e")
+                                .frame(width: 40, height: 40)
+                                .cornerRadius(Constants.defaultCornerRadius)
+                            VStack(alignment: .leading) {
+                                Text("Decida")
+                                Text("Milionário e José Rico")
+                                    .foregroundColor(.secondary)
+                                    .font(.subheadline)
+                            }
+                            Spacer()
+                            Button {
+                            } label: {
+                                Image(systemName: "pause")
+                                    .foregroundColor(.primary)
+                            }
+                            .controlSize(.mini)
+                        }
+                        .onTapGesture {
+                            playerIsPresented = true
+                        }
+                    }
                 }
-                .disabled(newContextName.isEmpty)
-                Button(role: .cancel) {
-                    
-                } label: {
-                    Text("Cancelar")
-                }
-            } message: {
-                Text("Informe o nome de onde você está, para que seja adicionado o novo contexto.")
             }
-            .alert("Avalie essa música", isPresented: $rateTrackIsPresented) {
-                HStack {
-                    Text("😔")
-                    Text("😔")
-                    Text("😔")
+            .sheet(isPresented: $addNewContextIsPresented) {
+                NavigationView {
+                    List {
+                        Section(footer: Text("Informe o nome de onde você está, para que seja adicionado o novo contexto.")) {
+                            TextField("Nome do contexto", text: $newContextName)
+                            
+                        }
+                        Section {
+                            Button {
+                                
+                            } label: {
+                                Text("Adicionar")
+                            }
+                            .bold()
+                            .disabled(newContextName.count < 1)
+                            
+                            Button(role: .destructive) {
+                                
+                            } label: {
+                                Text("Cancelar")
+                            }
+                        }
+                    }
+                    .navigationTitle("Novo contexto detectado")
+                    .navigationBarTitleDisplayMode(.inline)
                 }
-                Button {
-                     
-                } label: {
-                    Text("OK")
-                }
-            } message: {
-               
+                .presentationDetents([.medium])
             }
-            .sheet(isPresented: $firstArtistSelectionIsPresented) {
-                FirstArtistSelectionView()
+            .sheet(isPresented: $firstArtistSelectionIsPresented, onDismiss: {
+                addNewContextIsPresented = true
+            }) {
+                NavigationView {
+                    FirstGenderSelectionView()
+                }
+            }
+            .sheet(isPresented: $playerIsPresented) {
+                PlayerView()
             }
         }
+        .preferredColorScheme(.dark)
     }
 }
 

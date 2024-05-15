@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserPreferencesView: View {
+struct ArtistsView: View {
     @State private var search = ""
     @State private var selectArtistIsPresented = false
     
@@ -24,12 +24,12 @@ struct UserPreferencesView: View {
                 Button {
                     selectArtistIsPresented = true
                 } label: {
-                    Text("Selecionar")
+                    Text("Adicionar")
                 }
             }
             
         }
-        .navigationTitle("Preferências do usuário")
+        .navigationTitle("Artistas")
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $search)
         .sheet(isPresented: $selectArtistIsPresented) {
@@ -40,7 +40,7 @@ struct UserPreferencesView: View {
 
 #Preview {
     NavigationView {
-        UserPreferencesView()
+        ArtistsView()
     }
 }
 
@@ -48,13 +48,12 @@ struct SelectArtistView: View {
     @State private var search = ""
     
     @Environment(\.dismiss) private var dismiss
+    @State private var multiSelection = Set<Int>()
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(0..<50) { i in
-                    ArtistView(name: "Milionário e José Rico", imageUrl: "https://i.scdn.co/image/ab6761610000e5eb26c5c8d56a8979c644f37de7")
-                }
+            List(0..<50, id: \.self, selection: $multiSelection) { i in
+                ArtistView(name: "Milionário e José Rico", imageUrl: "https://i.scdn.co/image/ab6761610000e5eb26c5c8d56a8979c644f37de7")
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -64,10 +63,20 @@ struct SelectArtistView: View {
                         Text("Fechar")
                     }
                 }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Adicionar \(multiSelection.count)")
+                            .disabled(multiSelection.count == 0)
+                    }
+                }
             }
             .navigationTitle("Selecionar artista")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $search)
+            .environment(\.editMode, .constant(EditMode.active))
+            .interactiveDismissDisabled(true)
         }
     }
 }

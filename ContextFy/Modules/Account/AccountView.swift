@@ -37,19 +37,24 @@ struct AccountView: View {
                 
                 Section {
                     NavigationLink {
-                        UserPreferencesView()
+                        ArtistsView()
                     } label: {
-                        Label("Preferências do usuário", systemImage: "bolt.heart")
+                        Label("Artistas", systemImage: SystemIcons.artists)
                     }
                     NavigationLink {
-                        PlaylistsView()
+                        GendersView()
                     } label: {
-                        Label("Playlists", systemImage: "music.quarternote.3")
+                        Label("Gêneros", systemImage: SystemIcons.genders)
                     }
                     NavigationLink {
                         ContextsView()
                     } label: {
-                        Label("Meus contextos", systemImage: "location.viewfinder")
+                        Label("Meus contextos", systemImage: SystemIcons.contexts)
+                    }
+                    NavigationLink {
+                        PlaylistsView()
+                    } label: {
+                        Label("Playlists", systemImage: SystemIcons.playlists)
                     }
                 }
                 

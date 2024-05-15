@@ -13,11 +13,13 @@ struct TrackView: View {
     let albumName: String
     let albumImageUrl: String
     let playing: Bool
+    let onPlayPressed: () -> Void
     
     var body: some View {
         HStack {
             CachedImageView(urlString: albumImageUrl)
                 .frame(width: 60, height: 60)
+                .cornerRadius(Constants.defaultCornerRadius)
             VStack(alignment: .leading) {
                 Text(name)
                     .bold()
@@ -29,7 +31,7 @@ struct TrackView: View {
             }
             Spacer()
             Button {
-                
+                onPlayPressed()
             } label: {
                 Image(systemName: playing ? "pause.circle" : "play.circle")
                     .foregroundColor(playing ? .primary : .accentColor)
@@ -46,6 +48,7 @@ struct TrackView: View {
         artistName: "Milionário e José Rico",
         albumName: "Atravessando Gerações",
         albumImageUrl: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e",
-        playing: false
+        playing: false,
+        onPlayPressed: { }
     )
 }
