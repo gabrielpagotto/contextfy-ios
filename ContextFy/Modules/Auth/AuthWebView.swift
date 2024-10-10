@@ -40,14 +40,12 @@ extension AuthWebUIViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         guard let url = webView.url else { return }
         if url.absoluteString.contains("callback?access_token=") {
-            
             let script = """
                 (function() {
                     var body = document.body.innerText;
                     return body;
                 })();
             """
-            
             webView.evaluateJavaScript(script) { (result, error) in
                 if let jsonString = result as? String {
                     if let jsonData = jsonString.data(using: .utf8) {
