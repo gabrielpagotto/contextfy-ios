@@ -11,7 +11,6 @@ struct AuthView: View {
     @State private var spotifyAuthWebviewPresented = false
     
     @EnvironmentObject private var profileRepository: ProfileRepository
-    @EnvironmentObject private var spotifyService: SpotifyService
     
     @AppStorage("contextfy.access_token") private var accessToken: String = ""
     @AppStorage("contextfy.display_name") private var displayName: String = ""
@@ -105,5 +104,4 @@ extension ButtonStyle where Self == CustomButtonStyle {
 
 #Preview {
     AuthView()
-        .environmentObject(SpotifyService())
 }

@@ -13,7 +13,6 @@ struct ContextFyApp: App {
         let session = ApiClient.shared.getSession()
         WindowGroup {
             ContentView()
-                .environmentObject(SpotifyService())
                 .environmentObject(ProfileRepository(session: session))
                 .preferredColorScheme(.dark)
             
