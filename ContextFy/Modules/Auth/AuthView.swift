@@ -42,7 +42,7 @@ struct AuthView: View {
             .padding()
             .sheet(isPresented: $spotifyAuthWebviewPresented, content: {
                 NavigationView {
-                    SpotifyAuthWebView(spotifyService: spotifyService, onResult: authenticate)
+                    AuthWebView(authURL: "http://localhost:3000/auth/spotify/oauth2", onResult: authenticate)
                         .navigationTitle("Entrar no Spotify")
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar {
