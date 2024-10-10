@@ -10,11 +10,12 @@ import SwiftUI
 struct AuthView: View {
     @State private var spotifyAuthWebviewPresented = false
     
+    @EnvironmentObject private var profileRepository: ProfileRepository
     @EnvironmentObject private var spotifyService: SpotifyService
     
-    @AppStorage("spotify.access_token") private var accessToken: String = ""
-    @AppStorage("spotify.display_name") private var displayName: String = ""
-    @AppStorage("spotify.image_url") private var imageUrl: String = ""
+    @AppStorage("contextfy.access_token") private var accessToken: String = ""
+    @AppStorage("contextfy.display_name") private var displayName: String = ""
+    @AppStorage("contextfy.image_url") private var imageUrl: String = ""
     
     var body: some View {
         NavigationView {
@@ -60,30 +61,29 @@ struct AuthView: View {
     }
     
     private func authenticate(_ result: AuthResult) {
-        spotifyAuthWebviewPresented = false
-
-        if let accessToken = result.accessToken {
-            self.accessToken = accessToken
-        }
-
-        let profile = try? spotifyService.getProfile()
-        if let displayName = profile?.displayName {
-            self.displayName = displayName
-        }
-        
-        var imageUrl = ""
-        if let images = profile?.images {
-            var iSize = 0
-            for image in images {
-                let nSize = image.width + image.height
-                if nSize > iSize {
-                    iSize = nSize
-                    imageUrl = image.url
+        if let accessToken = result.accessToken { self.accessToken = accessToken }
+        Task {
+            do {
+                let profile = try await profileRepository.me()
+                await MainActor.run {
+                    var imageUrl = ""
+                    var iSize = 0
+                    for image in profile.images {
+                        let nSize = image.width + image.height
+                        if nSize > iSize {
+                            iSize = nSize
+                            imageUrl = image.url
+                        }
+                    }
+                    self.displayName = profile.displayName
+                    self.imageUrl = imageUrl
                 }
+            } catch {
+                self.accessToken = ""
+                print("Failed to fetch profile: \(error.localizedDescription)")
             }
+            spotifyAuthWebviewPresented = false
         }
-        print(imageUrl)
-        self.imageUrl = imageUrl
     }
 }
 

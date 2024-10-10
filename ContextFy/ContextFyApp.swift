@@ -10,9 +10,11 @@ import SwiftUI
 @main
 struct ContextFyApp: App {
     var body: some Scene {
+        let session = ApiClient.shared.getSession()
         WindowGroup {
             ContentView()
                 .environmentObject(SpotifyService())
+                .environmentObject(ProfileRepository(session: session))
                 .preferredColorScheme(.dark)
             
                 // This fix the dialogs foreground and background colors

@@ -9,7 +9,7 @@ import SwiftUI
 import WebKit
 
 struct ContentView: View {
-    @AppStorage("spotify.access_token") private var accessToken: String = ""
+    @AppStorage("contextfy.access_token") private var accessToken: String = ""
     
     var body: some View {
         if accessToken.isEmpty {

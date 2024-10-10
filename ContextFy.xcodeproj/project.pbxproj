@@ -32,6 +32,8 @@
 		E48D46C42CB86A4E003AE862 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = E48D46C32CB86A4E003AE862 /* AlamofireDynamic */; };
 		E48D46C62CB86AF6003AE862 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46C52CB86AF6003AE862 /* ApiClient.swift */; };
 		E48D46C82CB870C7003AE862 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46C72CB870C7003AE862 /* AuthInterceptor.swift */; };
+		E48D46CB2CB87385003AE862 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46CA2CB87385003AE862 /* ProfileRepository.swift */; };
+		E48D46CE2CB874F1003AE862 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46CD2CB874F1003AE862 /* Models.swift */; };
 		E4C63A522BF3E20C004750A4 /* SystemIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A512BF3E20C004750A4 /* SystemIcons.swift */; };
 		E4C63A552BF3E319004750A4 /* GendersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A542BF3E319004750A4 /* GendersView.swift */; };
 		E4C63A572BF3E61C004750A4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A562BF3E61C004750A4 /* Constants.swift */; };
@@ -65,6 +67,8 @@
 		E42EE7262BCDE4C800060CB7 /* ArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsView.swift; sourceTree = "<group>"; };
 		E48D46C52CB86AF6003AE862 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		E48D46C72CB870C7003AE862 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		E48D46CA2CB87385003AE862 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
+		E48D46CD2CB874F1003AE862 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E4C63A512BF3E20C004750A4 /* SystemIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcons.swift; sourceTree = "<group>"; };
 		E4C63A542BF3E319004750A4 /* GendersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GendersView.swift; sourceTree = "<group>"; };
 		E4C63A562BF3E61C004750A4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -200,9 +204,11 @@
 		E41A8C622BC616A200FBD971 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				E48D46C92CB87366003AE862 /* Repositories */,
 				E4C63A502BF3E1E8004750A4 /* Views */,
 				E4C63A512BF3E20C004750A4 /* SystemIcons.swift */,
 				E4C63A562BF3E61C004750A4 /* Constants.swift */,
+				E48D46CD2CB874F1003AE862 /* Models.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -229,6 +235,14 @@
 				E42EE7262BCDE4C800060CB7 /* ArtistsView.swift */,
 			);
 			path = Artists;
+			sourceTree = "<group>";
+		};
+		E48D46C92CB87366003AE862 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				E48D46CA2CB87385003AE862 /* ProfileRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		E4C63A502BF3E1E8004750A4 /* Views */ = {
@@ -350,8 +364,10 @@
 				E41A8C452BC5B4EE00FBD971 /* SpotifyConstants.swift in Sources */,
 				E41A8C642BC616B400FBD971 /* CachedImageView.swift in Sources */,
 				E41A8C5F2BC5FA0300FBD971 /* HomeView.swift in Sources */,
+				E48D46CB2CB87385003AE862 /* ProfileRepository.swift in Sources */,
 				E41A8C562BC5F38800FBD971 /* AuthView.swift in Sources */,
 				E41A8C5C2BC5F93300FBD971 /* AccountView.swift in Sources */,
+				E48D46CE2CB874F1003AE862 /* Models.swift in Sources */,
 				E42DAE452BEB09E4001ED9A0 /* FirstArtistSelectionView.swift in Sources */,
 				E48D46C62CB86AF6003AE862 /* ApiClient.swift in Sources */,
 			);

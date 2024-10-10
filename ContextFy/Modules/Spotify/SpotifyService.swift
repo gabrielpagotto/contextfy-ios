@@ -19,7 +19,7 @@ class SpotifyService: ObservableObject {
     
     init() {
         self.client.addMiddleware(middleware: { request in
-            if let token = UserDefaults.standard.string(forKey: "spotify.access_token") {
+            if let token = UserDefaults.standard.string(forKey: "contextfy.access_token") {
                 var request = request
                 request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
                 return request
