@@ -29,6 +29,8 @@
 		E48D46C82CB870C7003AE862 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46C72CB870C7003AE862 /* AuthInterceptor.swift */; };
 		E48D46CB2CB87385003AE862 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46CA2CB87385003AE862 /* ProfileRepository.swift */; };
 		E48D46CE2CB874F1003AE862 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46CD2CB874F1003AE862 /* Models.swift */; };
+		E48D46D02CB88014003AE862 /* ArtistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46CF2CB88014003AE862 /* ArtistRepository.swift */; };
+		E48D46D22CB8ACC0003AE862 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46D12CB8ACC0003AE862 /* HomeController.swift */; };
 		E4C63A522BF3E20C004750A4 /* SystemIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A512BF3E20C004750A4 /* SystemIcons.swift */; };
 		E4C63A552BF3E319004750A4 /* GendersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A542BF3E319004750A4 /* GendersView.swift */; };
 		E4C63A572BF3E61C004750A4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A562BF3E61C004750A4 /* Constants.swift */; };
@@ -59,6 +61,8 @@
 		E48D46C72CB870C7003AE862 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		E48D46CA2CB87385003AE862 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		E48D46CD2CB874F1003AE862 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		E48D46CF2CB88014003AE862 /* ArtistRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistRepository.swift; sourceTree = "<group>"; };
+		E48D46D12CB8ACC0003AE862 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		E4C63A512BF3E20C004750A4 /* SystemIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcons.swift; sourceTree = "<group>"; };
 		E4C63A542BF3E319004750A4 /* GendersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GendersView.swift; sourceTree = "<group>"; };
 		E4C63A562BF3E61C004750A4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 				E42DAE442BEB09E4001ED9A0 /* FirstArtistSelectionView.swift */,
 				E4C63A582BF3E95B004750A4 /* FirstGenderSelectionView.swift */,
 				E4C63A5A2BF433FB004750A4 /* PlayerView.swift */,
+				E48D46D12CB8ACC0003AE862 /* HomeController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				E48D46CA2CB87385003AE862 /* ProfileRepository.swift */,
+				E48D46CF2CB88014003AE862 /* ArtistRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 				E42EE7242BCDE22A00060CB7 /* ArtistView.swift in Sources */,
 				E4D482DD2BC9E7F3008616F1 /* TrackView.swift in Sources */,
 				E4C63A572BF3E61C004750A4 /* Constants.swift in Sources */,
+				E48D46D22CB8ACC0003AE862 /* HomeController.swift in Sources */,
 				E4C63A592BF3E95B004750A4 /* FirstGenderSelectionView.swift in Sources */,
 				E4C63A5B2BF433FB004750A4 /* PlayerView.swift in Sources */,
 				E42DAE482BEB155A001ED9A0 /* ContextsView.swift in Sources */,
@@ -342,6 +349,7 @@
 				E48D46CE2CB874F1003AE862 /* Models.swift in Sources */,
 				E42DAE452BEB09E4001ED9A0 /* FirstArtistSelectionView.swift in Sources */,
 				E48D46C62CB86AF6003AE862 /* ApiClient.swift in Sources */,
+				E48D46D02CB88014003AE862 /* ArtistRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

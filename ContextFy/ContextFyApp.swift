@@ -14,6 +14,7 @@ struct ContextFyApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(ProfileRepository(session: session))
+                .environmentObject(ArtistRepository(session: session))
                 .preferredColorScheme(.dark)
             
                 // This fix the dialogs foreground and background colors

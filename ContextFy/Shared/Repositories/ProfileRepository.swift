@@ -20,10 +20,9 @@ class ProfileRepository : ObservableObject {
         let response = await session.request("/profile/me")
             .validate().serializingDecodable(Profile.self).response
         switch response.result {
-        case .success(let profile):
-            return profile
+        case .success(let result):
+            return result
         case .failure(let error):
-            print(error)
             throw error
         }
     }

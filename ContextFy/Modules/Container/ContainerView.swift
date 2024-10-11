@@ -11,6 +11,7 @@ struct ContainerView: View {
     var body: some View {
         TabView {
             HomeView()
+                .environmentObject(HomeController())
                 .tabItem {
                     Label("Início", systemImage: "music.note.house")
                 }

@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct SptfImage: Decodable {
+    let url: String
+    let height: Int
+    let width: Int
+}
+
+
 struct Profile: Decodable {
     let id: String
     let displayName: String
@@ -25,8 +32,18 @@ struct Profile: Decodable {
     }
 }
 
-struct SptfImage: Decodable {
-    let url: String
-    let height: Int
-    let width: Int
+struct Artist: Decodable {
+    let id: Int?
+    let sptfArtistId: String
+    let name: String
+    let images: [SptfImage]
+    let genres: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case sptfArtistId = "sptf_artist_id"
+        case name
+        case images
+        case genres
+    }
 }

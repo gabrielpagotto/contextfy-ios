@@ -8,16 +8,33 @@
 import SwiftUI
 
 struct ArtistsView: View {
-    @State private var search = ""
+    @State private var searchText = ""
+    @State private var loading = false
+    @State private var artists: [Artist] = []
     @State private var selectArtistIsPresented = false
     
+    @EnvironmentObject private var artistRepository: ArtistRepository
+    
+    private func filteredArtists() -> [Artist] {
+        if searchText.isEmpty {
+            return artists
+        } else {
+            return artists.filter({ $0.name.localizedCaseInsensitiveContains(searchText) })
+        }
+    }
+    
     var body: some View {
-        List {
-            ForEach(0..<50) { i in
-                ArtistView(name: "Milionário e José Rico", imageUrl: "https://i.scdn.co/image/ab6761610000e5eb26c5c8d56a8979c644f37de7")
-            }.onDelete(perform: { indexSet in
-                // TODO: Implement delete
-            })
+        VStack {
+            if loading {
+                ProgressView()
+            } else {
+                List {
+                    ForEach(filteredArtists(), id: \.sptfArtistId) {
+                        ArtistView(name: $0.name, imageUrl: $0.images.first?.url ??  "")
+                    }.onDelete(perform: deleteArtist)
+                }
+                .searchable(text: $searchText)
+            }
         }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
@@ -31,9 +48,36 @@ struct ArtistsView: View {
         }
         .navigationTitle("Artistas")
         .navigationBarTitleDisplayMode(.inline)
-        .searchable(text: $search)
         .sheet(isPresented: $selectArtistIsPresented) {
             SelectArtistView()
+        }
+        .onAppear(perform: query)
+    }
+    
+    private func query() {
+        Task {
+            loading = true
+            do {
+                artists = try await artistRepository.all()
+            } catch {
+                print("Canno`t query artists. \(error)")
+            }
+            loading = false
+        }
+    }
+    
+    private func deleteArtist(at indexSet: IndexSet) {
+        guard let index = indexSet.first else { return }
+        
+        let artistToDelete = artists[index]
+        
+        Task {
+            do {
+                try artistRepository.delete(id: artistToDelete.id!)
+                artists.remove(at: index)
+            } catch {
+                print("Error deleting artist: \(error)")
+            }
         }
     }
 }

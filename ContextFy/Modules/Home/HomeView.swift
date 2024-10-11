@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var firstArtistSelectionIsPresented = false
     @State private var addNewContextIsPresented = false
     @State private var newContextName = ""
     @State private var playerIsPresented = false
     
     @State private var playingIndex: Int? = nil
+    
+    @EnvironmentObject private var homeController: HomeController
+    @EnvironmentObject private var artistRepository: ArtistRepository
     
     var body: some View {
         NavigationView {
@@ -97,7 +99,7 @@ struct HomeView: View {
                 }
                 .presentationDetents([.medium])
             }
-            .sheet(isPresented: $firstArtistSelectionIsPresented, onDismiss: {
+            .sheet(isPresented: $homeController.firstGenderAndArtistSelectionPresented, onDismiss: {
                 addNewContextIsPresented = true
             }) {
                 NavigationView {
@@ -109,9 +111,17 @@ struct HomeView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .task {
+            if let artists = try? await artistRepository.all() {
+                if artists.isEmpty {
+                    homeController.firstGenderAndArtistSelectionPresented = true
+                }
+            }
+        }
     }
 }
 
 #Preview {
     HomeView()
+        .environmentObject(HomeController())
 }
