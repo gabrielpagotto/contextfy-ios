@@ -69,7 +69,7 @@ class ArtistRepository : ObservableObject {
     }
     
     func delete(id: Int) throws {
-        let response = session.request("/artists/\(id)", method: .delete)
+        _ = session.request("/artists/\(id)", method: .delete)
             .validate()
             .response { response in
                 switch response.result {
@@ -80,5 +80,4 @@ class ArtistRepository : ObservableObject {
                 }
             }
     }
-    
 }

@@ -15,12 +15,10 @@ struct ContextFyApp: App {
             ContentView()
                 .environmentObject(ProfileRepository(session: session))
                 .environmentObject(ArtistRepository(session: session))
-                .preferredColorScheme(.dark)
+				.preferredColorScheme(.none)
             
-                // This fix the dialogs foreground and background colors
                 .onAppear {
-                    UIView.appearance().tintColor = UIColor(named: "AccentColor")
-//                    UIView.appearance().backgroundColor = .black
+					UIView.appearance().tintColor = UIColor(named: "AccentColor")
                 }
         }
     }
