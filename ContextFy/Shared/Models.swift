@@ -47,3 +47,15 @@ struct Artist: Decodable {
         case genres
     }
 }
+
+struct Gender: Decodable {
+	let id: Int?
+	let sptfGenderId: String
+	let name: String
+	
+	enum CodingKeys: String, CodingKey {
+		case id
+		case sptfGenderId = "sptf_gender_id"
+		case name
+	}
+}

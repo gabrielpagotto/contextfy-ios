@@ -99,9 +99,7 @@ struct HomeView: View {
                 }
                 .presentationDetents([.medium])
             }
-            .sheet(isPresented: $homeController.firstGenderAndArtistSelectionPresented, onDismiss: {
-                addNewContextIsPresented = true
-            }) {
+            .sheet(isPresented: $homeController.firstGenderAndArtistSelectionPresented) {
                 NavigationView {
                     FirstGenderSelectionView()
                 }
@@ -110,7 +108,6 @@ struct HomeView: View {
                 PlayerView()
             }
         }
-        .preferredColorScheme(.dark)
         .task {
             if let artists = try? await artistRepository.all() {
                 if artists.isEmpty {
