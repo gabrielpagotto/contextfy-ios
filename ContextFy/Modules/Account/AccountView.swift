@@ -15,6 +15,7 @@ struct AccountView: View {
 	@State private var logoutConfirmationIsPresented = false
 	
 	@EnvironmentObject private var dependencyContainer: DependencyContainer
+	@EnvironmentObject private var playerViewModel: PlayerViewModel
 	
 	var body: some View {
 		NavigationView {
@@ -77,6 +78,7 @@ struct AccountView: View {
 	}
 	
 	private func logout() {
+		playerViewModel.playingTrack = nil
 		logoutConfirmationIsPresented = false
 		UserDefaults.standard.removeObject(forKey: "contextfy.access_token")
 		UserDefaults.standard.removeObject(forKey: "contextfy.display_name")

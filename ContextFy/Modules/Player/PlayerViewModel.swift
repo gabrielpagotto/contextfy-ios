@@ -19,6 +19,10 @@ final class PlayerViewModel : ObservableObject {
 		didSet {
 			if let track = playingTrack {
 				loadSong(previewUrl: track.previewUrl)
+			} else {
+				isPlaying = false
+				player?.pause()
+				seekToTime(value: 0.0)
 			}
 		}
 	}
