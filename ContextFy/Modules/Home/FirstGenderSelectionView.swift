@@ -10,16 +10,10 @@ import SwiftUI
 struct FirstGenderSelectionView: View {
 	@Environment(\.dismiss) private var dismiss
 	
-	
 	@State private var loading = false
 	@State private var genres: [Gender] = []
 	@State private var multiSelection = Set<String>()
 	@EnvironmentObject private var genderRepository: GenderRepository
-	
-//	private var filteredGenres: [Gender] {
-//		guard !searchText.isEmpty else { return genres }
-//		return genres.filter({ $0.name.localizedCaseInsensitiveContains(searchText) })
-//	}
 	
 	var body: some View {
 		VStack {

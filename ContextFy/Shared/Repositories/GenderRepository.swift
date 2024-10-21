@@ -8,7 +8,14 @@
 import Foundation
 import Alamofire
 
-class GenderRepository : ObservableObject {
+protocol GenderRepositoryProtocol {
+	func all() async throws -> [Gender]
+	func suggestions() async throws -> [Gender]
+	func create(sptfGenderIds: [String]) async throws -> [Gender]
+	func delete(id: Int) async throws
+}
+
+class GenderRepository : GenderRepositoryProtocol, ObservableObject {
 	
 	var session: Session
 	

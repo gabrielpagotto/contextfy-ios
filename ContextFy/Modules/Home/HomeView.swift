@@ -9,25 +9,15 @@ import SwiftUI
 import CoreLocation
 
 struct HomeView: View {
-	@State private var addNewContextIsPresented = false
-	@State private var playerIsPresented = false
-	@State private var playingIndex: Int? = nil
-	
-	@State private var latitude = nil as Double?
-	@State private var longitude = nil as Double?
-	@State private var isRunningLocationListener: Bool = false
-	
 	@StateObject private var locationManager = LocationManager()
 	
 	@EnvironmentObject private var homeController: HomeController
-	@EnvironmentObject private var contextRepository: ContextRepository
-	@EnvironmentObject private var artistRepository: ArtistRepository
 	
 	var body: some View {
 		NavigationView {
 			List {
 				Section {
-					Text("\(String(describing: latitude)) - \(String(describing: longitude))")
+					Text("\(String(describing: homeController.latitude)) - \(String(describing: homeController.longitude))")
 				}
 				Section {
 					if locationManager.authorizationStatus == .notDetermined  {
@@ -57,7 +47,7 @@ struct HomeView: View {
 					} else if [.authorizedAlways, .authorizedWhenInUse].contains(locationManager.authorizationStatus) {
 						if homeController.context == nil {
 							Button {
-								addNewContextIsPresented = true
+								homeController.addNewContextIsPresented = true
 							} label: {
 								Text("Adicionar este contexto")
 							}
@@ -68,28 +58,19 @@ struct HomeView: View {
 						}
 					}
 				}
-				
-				
-				// TODO: Change this for a real data
-				ForEach(0..<50) { i in
+				ForEach(homeController.recommendations, id: \.sptfTrackId) { track in
 					TrackView(
-						name: "Decida",
-						artistName: "Milionário e José Rico",
-						albumName: "Atravessando Gerações",
-						albumImageUrl: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e", playing: i == playingIndex,
-						onPlayPressed: {
-							if playingIndex == i {
-								playingIndex = nil
-							} else {
-								playingIndex = i
-							}
-						}
+						name: track.name,
+						artistName: track.artists.map(\.name).joined(separator: ", "),
+						albumName: "At",
+						albumImageUrl: track.images.first?.url ?? "", playing: false,
+						onPlayPressed: {}
 					)
 				}
 			}
 			.navigationTitle("ContextFy")
 			.toolbar {
-				if playingIndex != nil {
+				if homeController.playingIndex != nil {
 					ToolbarItem(placement: .bottomBar) {
 						HStack(alignment: .top) {
 							CachedImageView(urlString: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e")
@@ -110,12 +91,12 @@ struct HomeView: View {
 							.controlSize(.mini)
 						}
 						.onTapGesture {
-							playerIsPresented = true
+							homeController.playerIsPresented = true
 						}
 					}
 				}
 			}
-			.sheet(isPresented: $addNewContextIsPresented) {
+			.sheet(isPresented: $homeController.addNewContextIsPresented) {
 				AddContextView(latitude: locationManager.location!.coordinate.latitude, longitude: locationManager.location!.coordinate.longitude)
 					.presentationDetents([.medium])
 			}
@@ -124,60 +105,18 @@ struct HomeView: View {
 					FirstGenderSelectionView()
 				}
 			}
-			.sheet(isPresented: $playerIsPresented) {
+			.sheet(isPresented: $homeController.playerIsPresented) {
 				PlayerView()
 			}
 		}
-		.onAppear(perform: startLocationListener)
-		.onDisappear {
-			isRunningLocationListener = false
-		}
-		.onChange(of: locationManager.location) {
-			self.latitude = $1?.coordinate.latitude
-			self.longitude = $1?.coordinate.longitude
-		}
-		.task {
-			if let artists = try? await artistRepository.all() {
-				if artists.isEmpty {
-					homeController.firstGenderAndArtistSelectionPresented = true
-				}
-			}
-		}
-	}
-	
-	func startLocationListener() {
-		guard !isRunningLocationListener else { return }
-		isRunningLocationListener = true
-		Task {
-			while isRunningLocationListener {
-				guard !addNewContextIsPresented else {
-					try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
-					continue
-				}
-				
-				guard latitude != nil && longitude != nil else {
-					homeController.context = nil
-					try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
-					continue
-				}
-				
-				guard let context = try? await contextRepository.current(latitude: latitude!, longitude: longitude!, radius: 5) else {
-					homeController.context = nil
-					continue
-				}
-				
-				homeController.context = context
-				try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
-			}
-		}
-	}
-	
-	func loadInitialContext() {
-		
+		.onAppear(perform: homeController.startLocationListener)
+		.onDisappear(perform: homeController.cancelLocationListener)
+		.task(homeController.loadArtists)
+		.onChange(of: locationManager.location) { homeController.updateLocation(location: $1)}
+		.onChange(of: homeController.context) { homeController.loadRecommendations() }
 	}
 }
 
 #Preview {
 	HomeView()
-		.environmentObject(HomeController())
 }

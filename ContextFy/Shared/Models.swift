@@ -60,9 +60,39 @@ struct Gender: Decodable {
 	}
 }
 
-struct ContextModel: Decodable {
+struct ContextModel: Decodable, Identifiable, Equatable {
 	let id: Int
 	let name: String
 	let latitude: Double
 	let longitude: Double
+}
+
+struct TrackArtistModel: Decodable {
+	let sptfArtistId: String
+	let name: String
+	
+	enum CodingKeys: String, CodingKey {
+		case sptfArtistId = "sptf_artist_id"
+		case name
+	}
+}
+
+struct TrackModel: Decodable {
+	let sptfTrackId: String
+	let name: String
+	let previewUrl: String
+	let uri: String
+	let type: String
+	let images: [SptfImage]
+	let artists: [TrackArtistModel]
+	
+	enum CodingKeys: String, CodingKey {
+		case sptfTrackId = "sptf_track_id"
+		case name
+		case previewUrl = "preview_url"
+		case uri
+		case type
+		case images
+		case artists
+	}
 }

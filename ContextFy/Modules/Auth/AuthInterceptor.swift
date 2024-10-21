@@ -28,7 +28,7 @@ final class AuthInterceptor : RequestInterceptor {
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         if let response = request.task?.response as? HTTPURLResponse {
-            if response.statusCode == 401 { removeAccessToken() }
+			if [401, 500].contains(response.statusCode) { removeAccessToken() }
         }
         completion(.doNotRetry)
     }

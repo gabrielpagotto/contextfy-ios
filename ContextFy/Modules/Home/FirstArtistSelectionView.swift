@@ -112,6 +112,5 @@ struct FirstArtistSelectionView: View {
 #Preview {
 	NavigationView {
 		FirstArtistSelectionView(selectedGenres: .constant([]))
-			.environmentObject(HomeController())
 	}
 }

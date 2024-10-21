@@ -19,7 +19,9 @@ struct GendersView: View {
 	var body: some View {
 		VStack {
 			if loading {
-				ProgressView()
+				LoaderView()
+			} else if genres.isEmpty  {
+				
 			} else {
 				List(genres, id: \.sptfGenderId, selection: $selecteds) {
 					Text($0.name)

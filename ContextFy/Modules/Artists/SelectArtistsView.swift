@@ -10,27 +10,20 @@ import SwiftUI
 
 struct SelectArtistsView: View {
 	@State private var searchText = ""
-	@State private var loading = false
-	@State private var artists: [Artist] = []
 	@State private var currentTask: Task<Void, Never>? = nil
-	@State private var creating = false
 	@State private var multiSelection = Set<String>()
 	
 	@Environment(\.dismiss) private var dismiss
 	
-	@EnvironmentObject private var artistRepository: ArtistRepository
-	
-	let onCreate: (_ artists: [Artist]) -> Void
+	@EnvironmentObject private var artistsViewModel: ArtistsViewModel
 	
 	var body: some View {
 		NavigationView {
 			VStack {
-				if loading {
-					ProgressView()
-						.progressViewStyle(CircularProgressViewStyle())
-						.padding()
+				if artistsViewModel.isSearching {
+					LoaderView()
 				} else {
-					List(artists, id: \.sptfArtistId, selection: $multiSelection) {
+					List(artistsViewModel.searchedArtists, id: \.sptfArtistId, selection: $multiSelection) {
 						ArtistView(name: $0.name, imageUrl: $0.images.first?.url ?? "")
 					}
 				}
@@ -45,10 +38,11 @@ struct SelectArtistsView: View {
 				}
 				ToolbarItem(placement: .confirmationAction) {
 					Button {
-						addSelectedArtists()
+						Task { await artistsViewModel.create(ids: multiSelection) }
 					} label: {
-						if creating {
+						if artistsViewModel.isCreating {
 							ProgressView()
+								.padding(.zero)
 						} else {
 							Text("Adicionar \(multiSelection.count)")
 								.bold()
@@ -59,7 +53,7 @@ struct SelectArtistsView: View {
 			}
 			.navigationTitle("Selecionar artista")
 			.navigationBarTitleDisplayMode(.inline)
-			.task { debounceQuery() }
+			.onAppear { Task { await artistsViewModel.searchArtists(query: "") } }
 			.onChange(of: searchText, { Task { debounceQuery() } })
 			.searchable(text: $searchText)
 			.environment(\.editMode, .constant(EditMode.active))
@@ -72,43 +66,12 @@ struct SelectArtistsView: View {
 		currentTask = Task {
 			try? await Task.sleep(nanoseconds: 500_000_000)
 			if !Task.isCancelled {
-				await query()
+				await artistsViewModel.searchArtists(query: searchText)
 			}
-		}
-	}
-	
-	private func query() async {
-		loading = true
-		do {
-			if searchText.isEmpty {
-				artists = try await artistRepository.suggestions().filter({ $0.id == nil })
-			} else {
-				artists = try await artistRepository.search(query: searchText).filter({ $0.id == nil })
-			}
-		} catch {
-			print("Canno`t search artists. \(error)")
-		}
-		loading = false
-	}
-	
-	
-	private func addSelectedArtists() {
-		Task {
-			creating = true
-			do {
-				let addedArtists = try await artistRepository.create(sptfArtistIds: Array(multiSelection))
-				onCreate(addedArtists)
-				dismiss()
-			} catch {
-				
-			}
-			creating = false
 		}
 	}
 }
 
 #Preview {
-	SelectArtistsView { artists in
-		
-	}
+	SelectArtistsView()
 }

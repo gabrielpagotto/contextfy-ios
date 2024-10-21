@@ -13,6 +13,8 @@ struct AccountView: View {
     @AppStorage("contextfy.image_url") private var imageUrl = ""
     
     @State private var logoutConfirmationIsPresented = false
+	
+	@EnvironmentObject private var dependencyContainer: DependencyContainer
     
     var body: some View {
         NavigationView {
@@ -38,6 +40,7 @@ struct AccountView: View {
                 Section {
                     NavigationLink {
                         ArtistsView()
+							.environmentObject(dependencyContainer.makeArtistsViewModel())
                     } label: {
                         Label("Artistas", systemImage: SystemIcons.artists)
                     }

@@ -8,7 +8,14 @@
 import Foundation
 import Alamofire
 
-class ContextRepository : ObservableObject {
+protocol ContextRepositoryProtocol {
+	func all() async throws -> [ContextModel]
+	func current(latitude: Double, longitude: Double, radius: Int) async throws -> ContextModel
+	func create(name: String, latitude: Double, longitude: Double) async throws -> ContextModel
+	func delete(id: Int) throws
+}
+
+class ContextRepository : ContextRepositoryProtocol, ObservableObject {
 	
 	var session: Session
 	
