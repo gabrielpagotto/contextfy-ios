@@ -74,5 +74,6 @@ struct ArtistsView: View {
 #Preview {
 	NavigationView {
 		ArtistsView()
+			.environmentObject(ArtistsViewModel(artistRepository: ArtistRepositoryPreview()))
 	}
 }

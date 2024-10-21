@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftUI
 
 protocol ArtistRepositoryProtocol {
 	func all() async throws -> [Artist]
@@ -89,7 +90,8 @@ class ArtistRepository : ArtistRepositoryProtocol, ObservableObject {
 	}
 }
 
-class MockArtistRepository: ArtistRepository {
+
+class ArtistRepositoryPreview: ArtistRepositoryProtocol {
 	var artists: [Artist] = [
 		Artist(id: 1, sptfArtistId: "487N2T9nIPEHrlTZLL3SQs", name: "Zé Neto & Cristiano", images: [
 			SptfImage(url: "https://i.scdn.co/image/ab6761610000e5eb7098ffe23a919f7742979c6e", height: 640, width: 640)
@@ -101,25 +103,25 @@ class MockArtistRepository: ArtistRepository {
 		])
 	]
 	
-	override func search(query: String) async throws -> [Artist] {
+	func search(query: String) async throws -> [Artist] {
 		return artists
 	}
 	
-	override func create(sptfArtistIds: [String]) async throws -> [Artist] {
+	func create(sptfArtistIds: [String]) async throws -> [Artist] {
 		artists.append(artists.first!)
 		return [artists.last!]
 	}
 	
-	override func delete(id: Int) throws {
+	func delete(id: Int) throws {
 		
 	}
 	
-	override func all() async throws -> [Artist] {
+	func all() async throws -> [Artist] {
 		return artists
 	}
 	
-	override func suggestions() async throws -> [Artist] {
+	func suggestions() async throws -> [Artist] {
 		return artists
 	}
-	
 }
+

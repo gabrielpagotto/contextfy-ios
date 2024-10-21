@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -42,7 +42,6 @@
 		E4C63A552BF3E319004750A4 /* GendersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A542BF3E319004750A4 /* GendersView.swift */; };
 		E4C63A572BF3E61C004750A4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A562BF3E61C004750A4 /* Constants.swift */; };
 		E4C63A592BF3E95B004750A4 /* FirstGenderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A582BF3E95B004750A4 /* FirstGenderSelectionView.swift */; };
-		E4C63A5B2BF433FB004750A4 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A5A2BF433FB004750A4 /* PlayerView.swift */; };
 		E4D482DD2BC9E7F3008616F1 /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D482DC2BC9E7F3008616F1 /* TrackView.swift */; };
 		E4F237212CC5F01A00366732 /* RecommendationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F237202CC5F00F00366732 /* RecommendationRepository.swift */; };
 		E4F48FB42CBF6CE100017CC0 /* SelectArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F48FB32CBF6CE100017CC0 /* SelectArtistsView.swift */; };
@@ -85,11 +84,14 @@
 		E4C63A542BF3E319004750A4 /* GendersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GendersView.swift; sourceTree = "<group>"; };
 		E4C63A562BF3E61C004750A4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E4C63A582BF3E95B004750A4 /* FirstGenderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstGenderSelectionView.swift; sourceTree = "<group>"; };
-		E4C63A5A2BF433FB004750A4 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		E4D482DC2BC9E7F3008616F1 /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
 		E4F237202CC5F00F00366732 /* RecommendationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationRepository.swift; sourceTree = "<group>"; };
 		E4F48FB32CBF6CE100017CC0 /* SelectArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectArtistsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E423D82F2CC6BBDF00E666EA /* Player */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Player; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E41A8C302BC5ADDA00FBD971 /* Frameworks */ = {
@@ -146,6 +148,7 @@
 		E41A8C4C2BC5CEB900FBD971 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E423D82F2CC6BBDF00E666EA /* Player */,
 				E4C63A532BF3E30D004750A4 /* Genders */,
 				E42DAE492BEB165D001ED9A0 /* Playlists */,
 				E42DAE462BEB154D001ED9A0 /* Contexts */,
@@ -198,7 +201,6 @@
 				E41A8C5E2BC5FA0300FBD971 /* HomeView.swift */,
 				E42DAE442BEB09E4001ED9A0 /* FirstArtistSelectionView.swift */,
 				E4C63A582BF3E95B004750A4 /* FirstGenderSelectionView.swift */,
-				E4C63A5A2BF433FB004750A4 /* PlayerView.swift */,
 				E48D46D12CB8ACC0003AE862 /* HomeController.swift */,
 				E49591DF2CC19BCE00EB530D /* AddContextView.swift */,
 			);
@@ -293,6 +295,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				E423D82F2CC6BBDF00E666EA /* Player */,
+			);
 			name = ContextFy;
 			packageProductDependencies = (
 				E45072902CBDEF6200B8083E /* Alamofire */,
@@ -384,7 +389,6 @@
 				E48D46D22CB8ACC0003AE862 /* HomeController.swift in Sources */,
 				E4F48FB42CBF6CE100017CC0 /* SelectArtistsView.swift in Sources */,
 				E4C63A592BF3E95B004750A4 /* FirstGenderSelectionView.swift in Sources */,
-				E4C63A5B2BF433FB004750A4 /* PlayerView.swift in Sources */,
 				E42DAE482BEB155A001ED9A0 /* ContextsView.swift in Sources */,
 				E48F70252CBF67EB009130B1 /* GenderRepository.swift in Sources */,
 				E41A8C392BC5ADDA00FBD971 /* ContentView.swift in Sources */,

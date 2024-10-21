@@ -74,4 +74,5 @@ struct SelectArtistsView: View {
 
 #Preview {
 	SelectArtistsView()
+		.environmentObject(ArtistsViewModel(artistRepository: ArtistRepositoryPreview()))
 }
