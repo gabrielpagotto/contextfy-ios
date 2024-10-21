@@ -31,6 +31,9 @@
 		E48D46D02CB88014003AE862 /* ArtistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46CF2CB88014003AE862 /* ArtistRepository.swift */; };
 		E48D46D22CB8ACC0003AE862 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46D12CB8ACC0003AE862 /* HomeController.swift */; };
 		E48F70252CBF67EB009130B1 /* GenderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F70242CBF67E3009130B1 /* GenderRepository.swift */; };
+		E49591DC2CC186D600EB530D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49591DB2CC186D200EB530D /* LocationManager.swift */; };
+		E49591DE2CC190B400EB530D /* ContextRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49591DD2CC190AE00EB530D /* ContextRepository.swift */; };
+		E49591E02CC19BCE00EB530D /* AddContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49591DF2CC19BCE00EB530D /* AddContextView.swift */; };
 		E4C63A522BF3E20C004750A4 /* SystemIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A512BF3E20C004750A4 /* SystemIcons.swift */; };
 		E4C63A552BF3E319004750A4 /* GendersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A542BF3E319004750A4 /* GendersView.swift */; };
 		E4C63A572BF3E61C004750A4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C63A562BF3E61C004750A4 /* Constants.swift */; };
@@ -66,6 +69,9 @@
 		E48D46D12CB8ACC0003AE862 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		E48F70232CBE0017009130B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E48F70242CBF67E3009130B1 /* GenderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderRepository.swift; sourceTree = "<group>"; };
+		E49591DB2CC186D200EB530D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		E49591DD2CC190AE00EB530D /* ContextRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRepository.swift; sourceTree = "<group>"; };
+		E49591DF2CC19BCE00EB530D /* AddContextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContextView.swift; sourceTree = "<group>"; };
 		E4C63A512BF3E20C004750A4 /* SystemIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcons.swift; sourceTree = "<group>"; };
 		E4C63A542BF3E319004750A4 /* GendersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GendersView.swift; sourceTree = "<group>"; };
 		E4C63A562BF3E61C004750A4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -183,6 +189,7 @@
 				E4C63A582BF3E95B004750A4 /* FirstGenderSelectionView.swift */,
 				E4C63A5A2BF433FB004750A4 /* PlayerView.swift */,
 				E48D46D12CB8ACC0003AE862 /* HomeController.swift */,
+				E49591DF2CC19BCE00EB530D /* AddContextView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -190,6 +197,7 @@
 		E41A8C622BC616A200FBD971 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				E49591DB2CC186D200EB530D /* LocationManager.swift */,
 				E48D46C92CB87366003AE862 /* Repositories */,
 				E4C63A502BF3E1E8004750A4 /* Views */,
 				E4C63A512BF3E20C004750A4 /* SystemIcons.swift */,
@@ -227,6 +235,7 @@
 		E48D46C92CB87366003AE862 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E49591DD2CC190AE00EB530D /* ContextRepository.swift */,
 				E48D46CF2CB88014003AE862 /* ArtistRepository.swift */,
 				E48F70242CBF67E3009130B1 /* GenderRepository.swift */,
 				E48D46CA2CB87385003AE862 /* ProfileRepository.swift */,
@@ -350,11 +359,14 @@
 				E42DAE4D2BEB17DE001ED9A0 /* PlaylistItemView.swift in Sources */,
 				E41A8C642BC616B400FBD971 /* CachedImageView.swift in Sources */,
 				E41A8C5F2BC5FA0300FBD971 /* HomeView.swift in Sources */,
+				E49591DE2CC190B400EB530D /* ContextRepository.swift in Sources */,
+				E49591DC2CC186D600EB530D /* LocationManager.swift in Sources */,
 				E48D46CB2CB87385003AE862 /* ProfileRepository.swift in Sources */,
 				E41A8C562BC5F38800FBD971 /* AuthView.swift in Sources */,
 				E41A8C5C2BC5F93300FBD971 /* AccountView.swift in Sources */,
 				E48D46CE2CB874F1003AE862 /* Models.swift in Sources */,
 				E42DAE452BEB09E4001ED9A0 /* FirstArtistSelectionView.swift in Sources */,
+				E49591E02CC19BCE00EB530D /* AddContextView.swift in Sources */,
 				E48D46C62CB86AF6003AE862 /* ApiClient.swift in Sources */,
 				E48D46D02CB88014003AE862 /* ArtistRepository.swift in Sources */,
 			);

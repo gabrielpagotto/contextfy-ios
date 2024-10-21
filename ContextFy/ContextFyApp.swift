@@ -16,6 +16,7 @@ struct ContextFyApp: App {
 				.environmentObject(ProfileRepository(session: session))
 				.environmentObject(ArtistRepository(session: session))
 				.environmentObject(GenderRepository(session: session))
+				.environmentObject(ContextRepository(session: session))
 				.preferredColorScheme(.dark)
 			
 				.onAppear {

@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-private class BaseURLInterceptor: RequestInterceptor {
+final private class BaseURLInterceptor: RequestInterceptor {
     
     private let baseURL: String
     
@@ -28,7 +28,7 @@ private class BaseURLInterceptor: RequestInterceptor {
 }
 
 class ApiClient {
-    private static let baseURL = "http://localhost:3000"
+	static let baseURL = "http://localhost:3000"
     
     static let shared: ApiClient = {
         let instance = ApiClient()

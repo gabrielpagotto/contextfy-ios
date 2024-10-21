@@ -59,3 +59,10 @@ struct Gender: Decodable {
 		case name
 	}
 }
+
+struct ContextModel: Decodable {
+	let id: Int
+	let name: String
+	let latitude: Double
+	let longitude: Double
+}

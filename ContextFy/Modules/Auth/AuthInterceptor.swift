@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class AuthInterceptor : RequestInterceptor {
+final class AuthInterceptor : RequestInterceptor {
     
     private func removeAccessToken() {
         UserDefaults.standard.removeObject(forKey: "contextfy.access_token")

@@ -11,4 +11,6 @@ class HomeController : ObservableObject {
     
     @Published
     var firstGenderAndArtistSelectionPresented = false
+	@Published
+	var context = nil as ContextModel?
 }

@@ -28,8 +28,23 @@ class AuthWebUIViewController: UIViewController, WKUIDelegate {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	private func clearWebCache() {
+		let dataStore = WKWebsiteDataStore.default()
+		let dataTypes = WKWebsiteDataStore.allWebsiteDataTypes()
+		
+		dataStore.fetchDataRecords(ofTypes: dataTypes) { records in
+			dataStore.removeData(ofTypes: dataTypes, for: records) {
+				
+			}
+		}
+	}
+	
 	override func viewDidLoad() {
+		super.viewDidLoad()
+		clearWebCache()
+		
 		let webConfiguration = WKWebViewConfiguration()
+		
 		let webView = WKWebView(frame: .zero, configuration: webConfiguration)
 		webView.uiDelegate = self
 		webView.navigationDelegate = self
@@ -44,8 +59,8 @@ extension AuthWebUIViewController: WKNavigationDelegate {
 		if url.absoluteString.contains("callback?access_token=") {
 			let script = """
 				(function() {
-					var body = document.body.innerText;
-					return body;
+				 var body = document.body.innerText;
+				 return body;
 				})();
 			"""
 			webView.evaluateJavaScript(script) { (result, error) in
@@ -65,6 +80,21 @@ extension AuthWebUIViewController: WKNavigationDelegate {
 				}
 			}
 		}
+	}
+	
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		if let url = navigationAction.request.url {
+			print("Navegando para: \(url.absoluteString)")
+		}
+		decisionHandler(.allow)
+	}
+
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+		print("Carregamento concluído: \(webView.url?.absoluteString ?? "URL não disponível")")
+	}
+
+	func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+		print("Falha ao carregar: \(error.localizedDescription)")
 	}
 }
 
