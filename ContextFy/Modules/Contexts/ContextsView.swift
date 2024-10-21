@@ -13,9 +13,9 @@ struct ContextsView: View {
 	@State private var contexts: [ContextModel] = []
 	
 	@EnvironmentObject private var contextRepository: ContextRepository
-
-    var body: some View {
-        List {
+	
+	var body: some View {
+		List {
 			if loading {
 				ProgressView()
 			} else {
@@ -26,11 +26,11 @@ struct ContextsView: View {
 					.onDelete(perform: deleteContext)
 				}
 			}
-        }
+		}
 		.onAppear(perform: loadContexts)
-        .navigationTitle("Meus contextos")
-        .navigationBarTitleDisplayMode(.inline)
-    }
+		.navigationTitle("Meus contextos")
+		.navigationBarTitleDisplayMode(.inline)
+	}
 	
 	private func loadContexts() {
 		Task {
@@ -59,7 +59,7 @@ struct ContextsView: View {
 }
 
 #Preview {
-    NavigationView {
-        ContextsView()
-    }
+	NavigationView {
+		ContextsView()
+	}
 }

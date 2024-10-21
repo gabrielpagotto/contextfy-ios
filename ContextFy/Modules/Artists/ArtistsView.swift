@@ -10,7 +10,7 @@ import SwiftUI
 struct ArtistsView: View {
 	@State private var searchText = ""
 	@State private var multiSelection = Set<String>()
-
+	
 	@EnvironmentObject private var artistsViewModel: ArtistsViewModel
 	
 	private var hasArtists: Bool {

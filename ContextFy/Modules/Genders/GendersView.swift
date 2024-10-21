@@ -15,7 +15,7 @@ struct GendersView: View {
 	@State private var genres: [Gender] = []
 	
 	@EnvironmentObject private var genderRepository: GenderRepository
-
+	
 	var body: some View {
 		VStack {
 			if loading {

@@ -16,7 +16,7 @@ final class DependencyContainer : ObservableObject {
 	lazy var profileRepository: ProfileRepository = .init(session: session)
 	lazy var genderRepository: GenderRepository = .init(session: session)
 	lazy var recommendationRepository: RecommendationRepository = .init(session: session)
-		
+	
 	func makeHomeViewModel() -> HomeController {
 		return HomeController(artistRepository: artistsRepository,
 							  contextRepository: contextRepository,

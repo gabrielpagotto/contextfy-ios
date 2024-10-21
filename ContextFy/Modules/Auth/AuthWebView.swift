@@ -58,11 +58,11 @@ extension AuthWebUIViewController: WKNavigationDelegate {
 		guard let url = webView.url else { return }
 		if url.absoluteString.contains("callback?access_token=") {
 			let script = """
-				(function() {
-				 var body = document.body.innerText;
-				 return body;
-				})();
-			"""
+	(function() {
+	 var body = document.body.innerText;
+	 return body;
+	})();
+   """
 			webView.evaluateJavaScript(script) { (result, error) in
 				if let jsonString = result as? String {
 					if let jsonData = jsonString.data(using: .utf8) {
@@ -88,11 +88,11 @@ extension AuthWebUIViewController: WKNavigationDelegate {
 		}
 		decisionHandler(.allow)
 	}
-
+	
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		print("Carregamento concluído: \(webView.url?.absoluteString ?? "URL não disponível")")
 	}
-
+	
 	func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
 		print("Falha ao carregar: \(error.localizedDescription)")
 	}

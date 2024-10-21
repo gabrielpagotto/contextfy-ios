@@ -122,13 +122,13 @@
 		E41A8C352BC5ADDA00FBD971 /* ContextFy */ = {
 			isa = PBXGroup;
 			children = (
-				E44F07F02CC5F97200FA708F /* DependencyContainer.swift */,
 				E48F70232CBE0017009130B1 /* Info.plist */,
 				E41A8C622BC616A200FBD971 /* Shared */,
 				E41A8C512BC5D59700FBD971 /* Core */,
 				E41A8C4C2BC5CEB900FBD971 /* Modules */,
 				E41A8C362BC5ADDA00FBD971 /* ContextFyApp.swift */,
 				E41A8C382BC5ADDA00FBD971 /* ContentView.swift */,
+				E44F07F02CC5F97200FA708F /* DependencyContainer.swift */,
 				E41A8C3A2BC5ADDC00FBD971 /* Assets.xcassets */,
 				E41A8C3C2BC5ADDC00FBD971 /* Preview Content */,
 			);
@@ -287,6 +287,7 @@
 				E41A8C2F2BC5ADDA00FBD971 /* Sources */,
 				E41A8C302BC5ADDA00FBD971 /* Frameworks */,
 				E41A8C312BC5ADDA00FBD971 /* Resources */,
+				E423D82E2CC6B9C000E666EA /* Swift Format */,
 			);
 			buildRules = (
 			);
@@ -347,6 +348,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E423D82E2CC6B9C000E666EA /* Swift Format */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Format";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat .\nelse\n    echo \"warning: SwiftFormat not installed, run 'brew install swiftformat'\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E41A8C2F2BC5ADDA00FBD971 /* Sources */ = {

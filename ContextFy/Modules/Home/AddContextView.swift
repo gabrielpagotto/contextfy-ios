@@ -20,7 +20,7 @@ struct AddContextView: View {
 	@EnvironmentObject private var contextRepository: ContextRepository
 	
 	
-    var body: some View {
+	var body: some View {
 		NavigationView {
 			List {
 				Section(footer: Text("Informe o nome de onde você está, para que seja adicionado o novo contexto.")) {
@@ -54,7 +54,7 @@ struct AddContextView: View {
 			.navigationTitle("Novo contexto detectado")
 			.navigationBarTitleDisplayMode(.inline)
 		}
-    }
+	}
 	
 	func create() {
 		Task {

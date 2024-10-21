@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct LoaderView: View {
-    var body: some View {
+	var body: some View {
 		VStack {
 			ProgressView()
 			Text("CARREGANDO...")
 				.padding()
 				.foregroundStyle(.secondary)
 		}
-    }
+	}
 }
 
 #Preview {
-    LoaderView()
+	LoaderView()
 }

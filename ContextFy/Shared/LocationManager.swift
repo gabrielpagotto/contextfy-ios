@@ -14,7 +14,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 	
 	@Published var location: CLLocation? = nil
 	@Published var authorizationStatus: CLAuthorizationStatus?
-
+	
 	override init() {
 		super.init()
 		locationManager.delegate = self
@@ -22,21 +22,21 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 		locationManager.requestWhenInUseAuthorization()
 		locationManager.startUpdatingLocation()
 	}
-
+	
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-		   authorizationStatus = status
-		   if status == .authorizedWhenInUse || status == .authorizedAlways {
-			   locationManager.startUpdatingLocation()
-		   } else {
-			   locationManager.stopUpdatingLocation()
-		   }
-	   }
-	   
-	   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		   location = locations.last
-	   }
-	   
-	   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-		   print("Erro ao obter a localização: \(error.localizedDescription)")
-	   }
+		authorizationStatus = status
+		if status == .authorizedWhenInUse || status == .authorizedAlways {
+			locationManager.startUpdatingLocation()
+		} else {
+			locationManager.stopUpdatingLocation()
+		}
+	}
+	
+	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		location = locations.last
+	}
+	
+	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		print("Erro ao obter a localização: \(error.localizedDescription)")
+	}
 }

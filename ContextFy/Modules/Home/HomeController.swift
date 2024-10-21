@@ -33,10 +33,10 @@ class HomeController : ObservableObject {
 		artistRepository: any ArtistRepositoryProtocol,
 		contextRepository: any ContextRepositoryProtocol,
 		recommendationRepository: any RecommendationRepositoryProtocol) {
-		self.artistRepository = artistRepository
-		self.contextRepository = contextRepository
-		self.recommendationRepository = recommendationRepository
-	}
+			self.artistRepository = artistRepository
+			self.contextRepository = contextRepository
+			self.recommendationRepository = recommendationRepository
+		}
 	
 	@Sendable
 	func loadArtists() async -> Void {

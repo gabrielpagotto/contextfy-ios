@@ -8,29 +8,29 @@
 import Foundation
 
 enum Constants {
-    static let musicalGenders = [
-        "Sertanejo",
-        "Pop",
-        "MPB",
-        "Rock",
-        "Forró",
-        "Funk",
-        "Eletrônica",
-        "Pagode",
-        "Blues",
-        "Metal",
-        "Jazz",
-        "Clássica",
-        "Gospel",
-        "Country",
-        "Reggae",
-        "MPB Instrumental",
-        "Folk",
-        "Bossa Nova",
-        "Rap",
-        "Samba",
-        "Axé",
-    ]
-    
-    static let defaultCornerRadius = 10.0
+	static let musicalGenders = [
+		"Sertanejo",
+		"Pop",
+		"MPB",
+		"Rock",
+		"Forró",
+		"Funk",
+		"Eletrônica",
+		"Pagode",
+		"Blues",
+		"Metal",
+		"Jazz",
+		"Clássica",
+		"Gospel",
+		"Country",
+		"Reggae",
+		"MPB Instrumental",
+		"Folk",
+		"Bossa Nova",
+		"Rap",
+		"Samba",
+		"Axé",
+	]
+	
+	static let defaultCornerRadius = 10.0
 }

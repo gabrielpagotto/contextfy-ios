@@ -9,17 +9,17 @@ import SwiftUI
 import WebKit
 
 struct ContentView: View {
-    @AppStorage("contextfy.access_token") private var accessToken: String = ""
-    
-    var body: some View {
-        if accessToken.isEmpty {
-            AuthView()
-        } else {
-            ContainerView()
-        }
-    }
+	@AppStorage("contextfy.access_token") private var accessToken: String = ""
+	
+	var body: some View {
+		if accessToken.isEmpty {
+			AuthView()
+		} else {
+			ContainerView()
+		}
+	}
 }
 
 #Preview {
-    ContentView()
+	ContentView()
 }
