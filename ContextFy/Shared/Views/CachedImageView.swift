@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CachedImageView: View {
 	@State private var imageData: Data?
-	
 	let urlString: String
+	
 	let placeholderSystemName: String
 	
 	init(urlString: String, placeholderSystemName: String = "photo") {
@@ -30,6 +30,7 @@ struct CachedImageView: View {
 			}
 		}
 		.onAppear { loadImage() }
+		.onChange(of: urlString) { loadImage() }
 	}
 	
 	private func loadImage() {

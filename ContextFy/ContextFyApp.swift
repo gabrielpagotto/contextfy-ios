@@ -11,9 +11,11 @@ import SwiftUI
 struct ContextFyApp: App {
 	var body: some Scene {		
 		let session = ApiClient.shared.getSession()
+		let dependencyContainer = DependencyContainer()
 		WindowGroup {
 			ContentView()
-				.environmentObject(DependencyContainer())
+				.environmentObject(dependencyContainer)
+				.environmentObject(dependencyContainer.makePlayerViewModel())
 				.environmentObject(ProfileRepository(session: session))
 				.environmentObject(ArtistRepository(session: session))
 				.environmentObject(GenderRepository(session: session))

@@ -12,6 +12,7 @@ struct HomeView: View {
 	@StateObject private var locationManager = LocationManager()
 	
 	@EnvironmentObject private var homeController: HomeController
+	@EnvironmentObject private var playerViewModel: PlayerViewModel
 	
 	var body: some View {
 		NavigationView {
@@ -63,29 +64,33 @@ struct HomeView: View {
 						name: track.name,
 						artistName: track.artists.map(\.name).joined(separator: ", "),
 						albumName: "At",
-						albumImageUrl: track.images.first?.url ?? "", playing: false,
-						onPlayPressed: {}
+						albumImageUrl: track.images.first?.url ?? "",
+						playing: playerViewModel.isPlaying && track.id == playerViewModel.playingTrack?.id,
+						onPlayPressed: {
+							playerViewModel.playingTrack = track
+						}
 					)
 				}
 			}
 			.navigationTitle("ContextFy")
 			.toolbar {
-				if homeController.playingIndex != nil {
+				if playerViewModel.playingTrack != nil {
 					ToolbarItem(placement: .bottomBar) {
 						HStack(alignment: .top) {
-							CachedImageView(urlString: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e")
+							CachedImageView(urlString: playerViewModel.playingTrack!.images.first?.url ?? "")
 								.frame(width: 40, height: 40)
 								.cornerRadius(Constants.defaultCornerRadius)
 							VStack(alignment: .leading) {
-								Text("Decida")
-								Text("Milionário e José Rico")
+								Text(playerViewModel.playingTrack!.name)
+								Text(playerViewModel.playingTrack!.artists.map(\.name).joined(separator: ", "))
 									.foregroundColor(.secondary)
 									.font(.subheadline)
 							}
 							Spacer()
 							Button {
+								playerViewModel.playPauseSong()
 							} label: {
-								Image(systemName: "pause")
+								Image(systemName: playerViewModel.isPlaying ? "pause" : "play")
 									.foregroundColor(.primary)
 							}
 							.controlSize(.mini)

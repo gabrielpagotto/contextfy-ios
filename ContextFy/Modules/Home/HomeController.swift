@@ -93,4 +93,26 @@ class HomeController : ObservableObject {
 	func cancelLocationListener() {
 		isRunningLocationListener = false
 	}
+	
+	func previousTrack(for currentTrack: TrackModel) -> TrackModel? {
+		guard let currentIndex = recommendations.firstIndex(where: { $0.id == currentTrack.id }) else {
+			return nil
+		}
+		let previousIndex = currentIndex - 1
+		guard previousIndex >= 0 else {
+			return nil
+		}
+		return recommendations[previousIndex]
+	}
+	
+	func nextTrack(for currentTrack: TrackModel) -> TrackModel? {
+		guard let currentIndex = recommendations.firstIndex(where: { $0.id == currentTrack.id }) else {
+			return nil
+		}
+		let nextIndex = currentIndex + 1
+		guard nextIndex < recommendations.count else {
+			return nil
+		}
+		return recommendations[nextIndex]
+	}
 }

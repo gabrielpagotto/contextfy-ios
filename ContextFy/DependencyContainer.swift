@@ -18,12 +18,16 @@ final class DependencyContainer : ObservableObject {
 	lazy var recommendationRepository: RecommendationRepository = .init(session: session)
 	
 	func makeHomeViewModel() -> HomeController {
-		return HomeController(artistRepository: artistsRepository,
+		return .init(artistRepository: artistsRepository,
 							  contextRepository: contextRepository,
 							  recommendationRepository: recommendationRepository)
 	}
 	
 	func makeArtistsViewModel() -> ArtistsViewModel {
-		return ArtistsViewModel(artistRepository: artistsRepository)
+		return .init(artistRepository: artistsRepository)
+	}
+	
+	func makePlayerViewModel() -> PlayerViewModel {
+		return .init()
 	}
 }

@@ -7,14 +7,16 @@
 
 import Foundation
 
-struct SptfImage: Decodable {
+struct SptfImage: Decodable, Identifiable, Equatable {
 	let url: String
 	let height: Int
 	let width: Int
+	
+	var id: String { url }
 }
 
 
-struct Profile: Decodable {
+struct Profile: Decodable, Identifiable, Equatable {
 	let id: String
 	let displayName: String
 	let href: String
@@ -32,7 +34,7 @@ struct Profile: Decodable {
 	}
 }
 
-struct Artist: Decodable {
+struct Artist: Decodable, Identifiable, Equatable {
 	let id: Int?
 	let sptfArtistId: String
 	let name: String
@@ -48,7 +50,7 @@ struct Artist: Decodable {
 	}
 }
 
-struct Gender: Decodable {
+struct Gender: Decodable, Identifiable, Equatable {
 	let id: Int?
 	let sptfGenderId: String
 	let name: String
@@ -67,9 +69,11 @@ struct ContextModel: Decodable, Identifiable, Equatable {
 	let longitude: Double
 }
 
-struct TrackArtistModel: Decodable {
+struct TrackArtistModel: Decodable, Identifiable, Equatable {
 	let sptfArtistId: String
 	let name: String
+	
+	var id: String { sptfArtistId }
 	
 	enum CodingKeys: String, CodingKey {
 		case sptfArtistId = "sptf_artist_id"
@@ -77,7 +81,7 @@ struct TrackArtistModel: Decodable {
 	}
 }
 
-struct TrackModel: Decodable {
+struct TrackModel: Decodable, Identifiable, Equatable {
 	let sptfTrackId: String
 	let name: String
 	let previewUrl: String
@@ -85,6 +89,8 @@ struct TrackModel: Decodable {
 	let type: String
 	let images: [SptfImage]
 	let artists: [TrackArtistModel]
+	
+	var id: String { sptfTrackId }
 	
 	enum CodingKeys: String, CodingKey {
 		case sptfTrackId = "sptf_track_id"

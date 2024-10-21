@@ -10,8 +10,11 @@ import SwiftUI
 struct PlayerView: View {
 	@Environment(\.dismiss) private var dismiss
 	
-	@State private var musicProgress = 30.0
+	@State private var musicProgress = 0.0
 	@State private var avaliationIndex: Int? = nil
+	
+	@EnvironmentObject private var homeViewModel: HomeController
+	@EnvironmentObject private var playerViewModel: PlayerViewModel
 	
 	private let avaliationOptions = [("😞", "Muito ruim"), ("😔", "Ruim"), ("😐", "Normal"), ("🙂", "Bom"), ("😄", "Muito bom")]
 	
@@ -20,7 +23,7 @@ struct PlayerView: View {
 			VStack {
 				Spacer()
 				GeometryReader { geometry in
-					CachedImageView(urlString: "https://i.scdn.co/image/ab67616d0000b273ed96587b9a84f44f2f115a2e")
+					CachedImageView(urlString: playerViewModel.playingTrack?.images.first?.url ?? "")
 						.frame(width: geometry.size.width, height: geometry.size.width)
 						.cornerRadius(Constants.defaultCornerRadius)
 				}
@@ -28,10 +31,10 @@ struct PlayerView: View {
 				VStack {
 					HStack {
 						VStack(alignment: .leading) {
-							Text("Decida")
+							Text(playerViewModel.playingTrack?.name ?? "")
 								.bold()
 								.font(.title)
-							Text("Milionário e José Rico")
+							Text(playerViewModel.playingTrack?.artists.map(\.name).joined(separator: ", ") ?? "")
 								.foregroundStyle(.secondary)
 						}
 						Spacer()
@@ -50,12 +53,14 @@ struct PlayerView: View {
 					
 					// Player controller
 					VStack {
-						Slider(value: $musicProgress, in: 1...100)
+						Slider(value: $musicProgress, in: 1...100, onEditingChanged: { value in
+							playerViewModel.seekToTime(value: musicProgress)
+						} )
 						
 						HStack {
-							Text("0:21")
+							Text(playerViewModel.currentTimeInMinutes)
 							Spacer()
-							Text("-1:45")
+							Text(playerViewModel.durationTimeInMinutes)
 						}
 						.font(.callout)
 						.foregroundColor(.secondary)
@@ -64,27 +69,29 @@ struct PlayerView: View {
 					HStack {
 						Spacer()
 						Button {
-							
+							playerViewModel.playingTrack = homeViewModel.previousTrack(for: playerViewModel.playingTrack!)
 						} label: {
 							Image(systemName: "backward.end.fill")
 								.font(.system(size: 30))
 						}
+						.disabled(playerViewModel.playingTrack == nil || homeViewModel.previousTrack(for: playerViewModel.playingTrack!) == nil)
 						
 						Spacer()
 						Button {
-							
+							playerViewModel.playPauseSong()
 						} label: {
-							Image(systemName: "play.circle.fill")
+							Image(systemName: playerViewModel.isPlaying ? "pause.circle.fill" : "play.circle.fill")
 								.font(.system(size: 60))
 						}
 						.controlSize(.extraLarge)
 						Spacer()
 						Button {
-							
+							playerViewModel.playingTrack = homeViewModel.nextTrack(for: playerViewModel.playingTrack!)
 						} label: {
 							Image(systemName: "forward.end.fill")
 								.font(.system(size: 30))
 						}
+						.disabled(playerViewModel.playingTrack == nil || homeViewModel.nextTrack(for: playerViewModel.playingTrack!) == nil)
 						Spacer()
 					}
 				}
@@ -101,10 +108,12 @@ struct PlayerView: View {
 					}
 				}
 			}
+			.onChange(of: playerViewModel.progress) { musicProgress = playerViewModel.progress }
 		}
 	}
 }
 
 #Preview {
 	PlayerView()
+		.environmentObject(PlayerViewModel())
 }
