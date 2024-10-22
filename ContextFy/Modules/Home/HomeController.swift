@@ -9,11 +9,11 @@ import Foundation
 import CoreLocation
 
 @MainActor
-class HomeController : ObservableObject {
+final class HomeController : ObservableObject {
 	
-	let artistRepository: any ArtistRepositoryProtocol
-	let contextRepository: any ContextRepositoryProtocol
-	let recommendationRepository: any RecommendationRepositoryProtocol
+	private let artistRepository: any ArtistRepositoryProtocol
+	private let contextRepository: any ContextRepositoryProtocol
+	private let recommendationRepository: any RecommendationRepositoryProtocol
 	
 	@Published var addNewContextIsPresented = false
 	@Published var playerIsPresented = false
@@ -26,7 +26,7 @@ class HomeController : ObservableObject {
 	@Published var firstGenderAndArtistSelectionPresented = false
 	@Published var context = nil as ContextModel?
 	
-	@Published var isLoadingRecommendations = false
+	@Published var isLoadingRecommendations = true
 	@Published var recommendations: [TrackModel] = []
 	
 	init(
@@ -69,18 +69,22 @@ class HomeController : ObservableObject {
 		isRunningLocationListener = true
 		Task {
 			while isRunningLocationListener {
-				try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
 				guard !addNewContextIsPresented else {
+					try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
 					continue
 				}
 				
 				guard latitude != nil && longitude != nil else {
 					self.context = nil
+					self.isLoadingRecommendations = false
+					try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
 					continue
 				}
 				
+				try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
 				guard let context = try? await contextRepository.current(latitude: latitude!, longitude: longitude!, radius: 5) else {
 					self.context = nil
+					self.isLoadingRecommendations = false
 					continue
 				}
 				

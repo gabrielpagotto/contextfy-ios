@@ -57,6 +57,11 @@ struct ArtistsView: View {
 				.searchable(text: $searchText)
 			}
 		}
+		.onAppear {
+			Task {
+				await artistsViewModel.loadArtists()
+			}
+		}
 		.toolbar {
 			ToolbarItem(placement: .confirmationAction) {
 				Button("Adicionar", action: artistsViewModel.startArtistSelection)

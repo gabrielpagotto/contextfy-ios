@@ -14,10 +14,14 @@ final class PlayerViewModel : ObservableObject {
 	
 	var player: AVPlayer?
 	var timeObserverToken: Any?
+	var preventReload = false
+	
+	private var ratedTrackRepository: any RatedTrackRepositoryProtocol
 	
 	@Published var playingTrack: TrackModel? {
 		didSet {
 			if let track = playingTrack {
+				if preventReload { return preventReload = false }
 				loadSong(previewUrl: track.previewUrl)
 			} else {
 				isPlaying = false
@@ -30,13 +34,15 @@ final class PlayerViewModel : ObservableObject {
 	@Published var isPlaying: Bool = false
 	@Published var currentTime: Double = 0
 	@Published var duration: Double = 0
+	@Published var isRating: Bool = false
 	
 	var progress: Double { (currentTime / duration) * 100 }
 	
 	var currentTimeInMinutes: String { convertToMinutesAndSeconds(currentTime) }
 	var durationTimeInMinutes: String { convertToMinutesAndSeconds(duration) }
 	
-	init() {
+	init(ratedTrackRepository: any RatedTrackRepositoryProtocol) {
+		self.ratedTrackRepository = ratedTrackRepository
 		NotificationCenter.default.addObserver(self,
 											   selector: #selector(playerDidFinishPlaying),
 											   name: .AVPlayerItemDidPlayToEndTime,
@@ -47,6 +53,8 @@ final class PlayerViewModel : ObservableObject {
 	
 	func loadSong(previewUrl: String) {
 		guard let url = URL(string: previewUrl) else { return }
+		
+		if timeObserverToken != nil { removePeriodicTimeObserver() }
 		
 		player = AVPlayer(url: url)
 		player?.play()
@@ -112,5 +120,19 @@ final class PlayerViewModel : ObservableObject {
 	@objc private func playerDidFinishPlaying(notification: Notification) {
 		isPlaying = false
 		seekToTime(value: 0.0)
+	}
+	
+	func rateCurrentTrack(rate: Int, contextId: Int) async {
+		guard let playingTrack else { return }
+		do {
+			isRating = true
+			let createdRate  = try await ratedTrackRepository.rate(
+				rate: rate, contextId: contextId, sptfTrackId: playingTrack.sptfTrackId)
+			self.preventReload = true
+			self.playingTrack?.rate = createdRate
+		} catch {
+			print("Erro rating a track. \(error)")
+		}
+		isRating = false
 	}
 }

@@ -15,7 +15,7 @@ protocol GenderRepositoryProtocol {
 	func delete(id: Int) async throws
 }
 
-class GenderRepository : GenderRepositoryProtocol, ObservableObject {
+final class GenderRepository : GenderRepositoryProtocol, ObservableObject {
 	
 	var session: Session
 	

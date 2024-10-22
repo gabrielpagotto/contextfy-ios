@@ -18,10 +18,14 @@ struct HomeView: View {
 		NavigationView {
 			List {
 				Section {
-					Text("\(String(describing: homeController.latitude)) - \(String(describing: homeController.longitude))")
-				}
-				Section {
-					if locationManager.authorizationStatus == .notDetermined  {
+					if homeController.isLoadingRecommendations {
+						HStack {
+							ProgressView()
+							Text("Carregando, aguarde...")
+								.bold()
+								.padding(.leading)
+						}
+					} else if locationManager.authorizationStatus == .notDetermined  {
 						HStack {
 							ProgressView()
 							Text("Aguardando ativação de localização...")
@@ -59,17 +63,35 @@ struct HomeView: View {
 						}
 					}
 				}
-				ForEach(homeController.recommendations, id: \.sptfTrackId) { track in
-					TrackView(
-						name: track.name,
-						artistName: track.artists.map(\.name).joined(separator: ", "),
-						albumName: "At",
-						albumImageUrl: track.images.first?.url ?? "",
-						playing: playerViewModel.isPlaying && track.id == playerViewModel.playingTrack?.id,
-						onPlayPressed: {
-							playerViewModel.playingTrack = track
+				if !homeController.isLoadingRecommendations {
+					if homeController.context == nil {
+						VStack {
+							Image(systemName: "location.fill.viewfinder")
+								.font(.system(size: 80))
+								.foregroundStyle(.accent)
+							
+								Text(locationManager.authorizationStatus == .denied
+									 ? "Seu serviço de localização encontra-se desabilitado, para utilizar as recomendações de música é necessário que ative o serviço de localização."
+									 : "O local em que você se encontra ainda não está na sua lista de contextos.")
+								.font(.title3)
+								.multilineTextAlignment(.center)
+								.padding(.top, 1)
+								.foregroundStyle(.secondary)
 						}
-					)
+					} else {
+						ForEach(homeController.recommendations, id: \.sptfTrackId) { track in
+							TrackView(
+								name: track.name,
+								artistName: track.artists.map(\.name).joined(separator: ", "),
+								albumName: "At",
+								albumImageUrl: track.images.first?.url ?? "",
+								playing: playerViewModel.isPlaying && track.id == playerViewModel.playingTrack?.id,
+								onPlayPressed: {
+									playerViewModel.playingTrack = track
+								}
+							)
+						}
+					}
 				}
 			}
 			.navigationTitle("ContextFy")
@@ -118,7 +140,11 @@ struct HomeView: View {
 		.onDisappear(perform: homeController.cancelLocationListener)
 		.task(homeController.loadArtists)
 		.onChange(of: locationManager.location) { homeController.updateLocation(location: $1)}
-		.onChange(of: homeController.context) { homeController.loadRecommendations() }
+		.onChange(of: homeController.context) {
+			if homeController.context != nil {
+				homeController.loadRecommendations()
+			}
+		}
 	}
 }
 

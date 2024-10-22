@@ -12,7 +12,7 @@ protocol ProfileRepositoryProtocol {
 	func me() async throws -> Profile
 }
 
-class ProfileRepository : ProfileRepositoryProtocol, ObservableObject {
+final class ProfileRepository : ProfileRepositoryProtocol, ObservableObject {
 	
 	private let session: Session
 	

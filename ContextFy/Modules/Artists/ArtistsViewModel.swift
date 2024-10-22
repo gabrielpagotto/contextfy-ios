@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 final class ArtistsViewModel : ObservableObject {
 	
-	let artistRepository: any ArtistRepositoryProtocol
+	private let artistRepository: any ArtistRepositoryProtocol
 	
 	@Published var isLoading = false
 	@Published var isCreating = false
@@ -22,9 +22,6 @@ final class ArtistsViewModel : ObservableObject {
 	
 	init(artistRepository: any ArtistRepositoryProtocol) {
 		self.artistRepository = artistRepository
-		Task {
-			await loadArtists()
-		}
 	}
 	
 	func startArtistSelection() -> Void {

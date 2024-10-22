@@ -12,7 +12,7 @@ protocol RecommendationRepositoryProtocol {
 	func getRecommendations() async throws -> [TrackModel]
 }
 
-class RecommendationRepository : RecommendationRepositoryProtocol, ObservableObject {
+final class RecommendationRepository : RecommendationRepositoryProtocol, ObservableObject {
 	
 	var session: Session
 	

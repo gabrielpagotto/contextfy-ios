@@ -11,7 +11,6 @@ struct PlayerView: View {
 	@Environment(\.dismiss) private var dismiss
 	
 	@State private var musicProgress = 0.0
-	@State private var avaliationIndex: Int? = nil
 	
 	@EnvironmentObject private var homeViewModel: HomeController
 	@EnvironmentObject private var playerViewModel: PlayerViewModel
@@ -38,16 +37,18 @@ struct PlayerView: View {
 								.foregroundStyle(.secondary)
 						}
 						Spacer()
-						Menu(avaliationIndex == nil ? "Avaliar" : "\(avaliationOptions[avaliationIndex!].0) \(avaliationOptions[avaliationIndex!].1)") {
+						Menu(playerViewModel.playingTrack?.rate == nil ? "Avaliar" : "\(avaliationOptions[playerViewModel.playingTrack!.rate!.rate].0) \(avaliationOptions[playerViewModel.playingTrack!.rate!.rate].1)") {
 							ForEach(Array(avaliationOptions.enumerated()), id: \.element.0) { index, item in
 								Button {
-									avaliationIndex = index
+									Task {
+										await playerViewModel.rateCurrentTrack(rate: index, contextId: homeViewModel.context!.id)
+									}
 								} label: {
 									Text("\(item.0) \(item.1)")
 										.font(.system(size: 30))
 								}
 							}
-						}
+						}.disabled(homeViewModel.context == nil)
 					}
 					
 					
@@ -109,11 +110,16 @@ struct PlayerView: View {
 				}
 			}
 			.onChange(of: playerViewModel.progress) { musicProgress = playerViewModel.progress }
+			.onChange(of: playerViewModel.playingTrack) {
+				guard let playingTrack = playerViewModel.playingTrack  else { return }
+				homeViewModel.recommendations = homeViewModel.recommendations.map({
+					$0.sptfTrackId == playingTrack.id && $0.rate != playingTrack.rate  ? playingTrack : $0
+				})
+			}
 		}
 	}
 }
 
 #Preview {
 	PlayerView()
-		.environmentObject(PlayerViewModel())
 }

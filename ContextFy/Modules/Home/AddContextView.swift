@@ -35,7 +35,6 @@ struct AddContextView: View {
 							HStack {
 								ProgressView()
 								Text("Adicionando...")
-									.padding()
 							}
 						} else {
 							Text("Adicionar")
@@ -45,13 +44,13 @@ struct AddContextView: View {
 					.disabled(newContextName.count < 1 || creating)
 					
 					Button(role: .destructive) {
-						
+						dismiss()
 					} label: {
 						Text("Cancelar")
 					}
 				}
 			}
-			.navigationTitle("Novo contexto detectado")
+			.navigationTitle("Novo contexto")
 			.navigationBarTitleDisplayMode(.inline)
 		}
 	}

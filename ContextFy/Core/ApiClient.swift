@@ -28,7 +28,7 @@ final private class BaseURLInterceptor: RequestInterceptor {
 }
 
 class ApiClient {
-	static let baseURL = "http://localhost:3000"
+	static let baseURL = "http://192.168.20.12:3000"
 	
 	static let shared: ApiClient = {
 		let instance = ApiClient()

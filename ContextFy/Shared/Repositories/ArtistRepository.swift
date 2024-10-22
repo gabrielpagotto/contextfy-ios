@@ -17,7 +17,7 @@ protocol ArtistRepositoryProtocol {
 	func delete(id: Int) throws -> Void
 }
 
-class ArtistRepository : ArtistRepositoryProtocol, ObservableObject {
+final class ArtistRepository : ArtistRepositoryProtocol, ObservableObject {
 	
 	var session: Session
 	
@@ -91,7 +91,7 @@ class ArtistRepository : ArtistRepositoryProtocol, ObservableObject {
 }
 
 
-class ArtistRepositoryPreview: ArtistRepositoryProtocol {
+final class ArtistRepositoryPreview: ArtistRepositoryProtocol {
 	var artists: [Artist] = [
 		Artist(id: 1, sptfArtistId: "487N2T9nIPEHrlTZLL3SQs", name: "Zé Neto & Cristiano", images: [
 			SptfImage(url: "https://i.scdn.co/image/ab6761610000e5eb7098ffe23a919f7742979c6e", height: 640, width: 640)

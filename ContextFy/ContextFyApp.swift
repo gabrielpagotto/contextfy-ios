@@ -15,7 +15,7 @@ struct ContextFyApp: App {
 		WindowGroup {
 			ContentView()
 				.environmentObject(dependencyContainer)
-				.environmentObject(dependencyContainer.makePlayerViewModel())
+				.environmentObject(dependencyContainer.playerViewModel)
 				.environmentObject(ProfileRepository(session: session))
 				.environmentObject(ArtistRepository(session: session))
 				.environmentObject(GenderRepository(session: session))

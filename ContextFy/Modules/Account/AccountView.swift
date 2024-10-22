@@ -41,7 +41,7 @@ struct AccountView: View {
 				Section {
 					NavigationLink {
 						ArtistsView()
-							.environmentObject(dependencyContainer.makeArtistsViewModel())
+							.environmentObject(dependencyContainer.artistsViewModel)
 					} label: {
 						Label("Artistas", systemImage: SystemIcons.artists)
 					}

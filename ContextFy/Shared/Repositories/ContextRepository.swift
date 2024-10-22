@@ -15,7 +15,7 @@ protocol ContextRepositoryProtocol {
 	func delete(id: Int) throws
 }
 
-class ContextRepository : ContextRepositoryProtocol, ObservableObject {
+final class ContextRepository : ContextRepositoryProtocol, ObservableObject {
 	
 	var session: Session
 	
