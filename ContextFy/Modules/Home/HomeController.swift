@@ -51,7 +51,7 @@ final class HomeController : ObservableObject {
 		Task {
 			do {
 				isLoadingRecommendations = true
-				self.recommendations = try await recommendationRepository.getRecommendations()
+				self.recommendations = try await recommendationRepository.getRecommendations(contextId: context!.id)
 			} catch {
 				print("Canno`t load recommendations: \(error)")
 			}

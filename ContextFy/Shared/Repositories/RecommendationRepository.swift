@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol RecommendationRepositoryProtocol {
-	func getRecommendations() async throws -> [TrackModel]
+	func getRecommendations(contextId: Int) async throws -> [TrackModel]
 }
 
 final class RecommendationRepository : RecommendationRepositoryProtocol, ObservableObject {
@@ -20,8 +20,8 @@ final class RecommendationRepository : RecommendationRepositoryProtocol, Observa
 		self.session = session
 	}
 	
-	func getRecommendations() async throws -> [TrackModel] {
-		let response = await session.request("/recommendations")
+	func getRecommendations(contextId: Int) async throws -> [TrackModel] {
+		let response = await session.request("/recommendations", parameters: ["context_id": contextId])
 			.validate().serializingDecodable([TrackModel].self).response
 		switch response.result {
 		case .success(let result):
