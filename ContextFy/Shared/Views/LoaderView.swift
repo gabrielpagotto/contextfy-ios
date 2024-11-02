@@ -11,8 +11,8 @@ struct LoaderView: View {
 	var body: some View {
 		VStack {
 			ProgressView()
-			Text("CARREGANDO...")
-				.padding()
+			Text("Carregando...")
+				.padding(.top, 2)
 				.foregroundStyle(.secondary)
 		}
 	}

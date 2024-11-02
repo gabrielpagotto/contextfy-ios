@@ -82,7 +82,7 @@ final class HomeController : ObservableObject {
 				}
 				
 				try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
-				guard let context = try? await contextRepository.current(latitude: latitude!, longitude: longitude!, radius: 5) else {
+				guard let context = try? await contextRepository.current(latitude: latitude!, longitude: longitude!, radius: 10) else {
 					self.context = nil
 					self.isLoadingRecommendations = false
 					continue

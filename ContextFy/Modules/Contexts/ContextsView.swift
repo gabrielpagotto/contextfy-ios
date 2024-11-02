@@ -17,20 +17,29 @@ struct ContextsView: View {
 	@EnvironmentObject private var contextRepository: ContextRepository
 	
 	var body: some View {
-		List {
+		VStack {
 			if loading {
 				ProgressView()
 			} else {
-				Section(footer: Text("Seus contextos aparecerão aqui. Sempre que você começar a ouvir uma música em um novo local por um tempo determinado, será perguntado se você gostaria de adicionar o novo contexto.")) {
-					ForEach(contexts, id: \.id) { context in
-						Button {
-							selectedContext = context
-						} label: {
-							Text(context.name)
+				if contexts.isEmpty {
+					ContentUnavailableView(
+						"Nenhum contexto adicionado",
+						systemImage: SystemIcons.contexts,
+						description: Text("Quando você estiver em um novo local, adicione um novo contexto na tela inicial."))
+				} else {
+					List {
+						Section(footer: Text("Seus contextos aparecerão aqui. Você pode clicar no nome para visualizar o mapa.")) {
+							ForEach(contexts, id: \.id) { context in
+								Button {
+									selectedContext = context
+								} label: {
+									Text(context.name)
+								}
+								.foregroundStyle(.primary)
+							}
+							.onDelete(perform: deleteContext)
 						}
-						.foregroundStyle(.primary)
 					}
-					.onDelete(perform: deleteContext)
 				}
 			}
 		}
@@ -99,28 +108,28 @@ struct MapView: View {
 	}
 	
 	var body: some View {
-			Map(coordinateRegion: $region, annotationItems: markers) { marker in
-				MapAnnotation(coordinate: marker.coordinate) {
-					VStack {
-						if marker.isPrimary {
-							Image(systemName: "mappin.and.ellipse")
-								.font(.title)
-								.foregroundStyle(.red)
-						} else {
-							Image(systemName: "mappin")
-								.font(.title2)
-						}
-						Text(marker.name)
-							.font(.caption)
-							.padding(4)
-							.background(.background)
-							.foregroundStyle(.primary)
-							.cornerRadius(8)
+		Map(coordinateRegion: $region, annotationItems: markers) { marker in
+			MapAnnotation(coordinate: marker.coordinate) {
+				VStack {
+					if marker.isPrimary {
+						Image(systemName: "mappin.and.ellipse")
+							.font(.title)
+							.foregroundStyle(.red)
+					} else {
+						Image(systemName: "mappin")
+							.font(.title2)
 					}
+					Text(marker.name)
+						.font(.caption)
+						.padding(4)
+						.background(.background)
+						.foregroundStyle(.primary)
+						.cornerRadius(8)
 				}
 			}
-			.edgesIgnoringSafeArea(.bottom)
 		}
+		.edgesIgnoringSafeArea(.bottom)
+	}
 }
 
 struct Marker: Identifiable {

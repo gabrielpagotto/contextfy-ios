@@ -15,7 +15,7 @@ struct PlayerView: View {
 	@EnvironmentObject private var homeViewModel: HomeController
 	@EnvironmentObject private var playerViewModel: PlayerViewModel
 	
-	private let avaliationOptions = [("😞", "Muito ruim"), ("😔", "Ruim"), ("😐", "Normal"), ("🙂", "Bom"), ("😄", "Muito bom")]
+	static private let avaliationOptions = [("😞", "Muito ruim"), ("😔", "Ruim"), ("😐", "Normal"), ("🙂", "Bom"), ("😄", "Muito bom")]
 	
 	var body: some View {
 		NavigationView {
@@ -37,8 +37,8 @@ struct PlayerView: View {
 								.foregroundStyle(.secondary)
 						}
 						Spacer()
-						Menu(playerViewModel.playingTrack?.rate == nil ? "Avaliar" : "\(avaliationOptions[playerViewModel.playingTrack!.rate!.rate].0) \(avaliationOptions[playerViewModel.playingTrack!.rate!.rate].1)") {
-							ForEach(Array(avaliationOptions.enumerated()), id: \.element.0) { index, item in
+						Menu(playerViewModel.playingTrack?.rate == nil ? "Avaliar" : "\(PlayerView.avaliationOptions[playerViewModel.playingTrack!.rate!.rate].0) \(PlayerView.avaliationOptions[playerViewModel.playingTrack!.rate!.rate].1)") {
+							ForEach(Array(PlayerView.avaliationOptions.enumerated()), id: \.element.0) { index, item in
 								Button {
 									Task {
 										await playerViewModel.rateCurrentTrack(rate: index, contextId: homeViewModel.context!.id)
@@ -75,7 +75,7 @@ struct PlayerView: View {
 							Image(systemName: "backward.end.fill")
 								.font(.system(size: 30))
 						}
-						.disabled(playerViewModel.playingTrack == nil || homeViewModel.previousTrack(for: playerViewModel.playingTrack!) == nil)
+						.disabled(playerViewModel.playingTrack == nil || homeViewModel.previousTrack(for: playerViewModel.playingTrack!) == nil || homeViewModel.context == nil)
 						
 						Spacer()
 						Button {
@@ -92,7 +92,7 @@ struct PlayerView: View {
 							Image(systemName: "forward.end.fill")
 								.font(.system(size: 30))
 						}
-						.disabled(playerViewModel.playingTrack == nil || homeViewModel.nextTrack(for: playerViewModel.playingTrack!) == nil)
+						.disabled(playerViewModel.playingTrack == nil || homeViewModel.nextTrack(for: playerViewModel.playingTrack!) == nil || homeViewModel.context == nil)
 						Spacer()
 					}
 				}
