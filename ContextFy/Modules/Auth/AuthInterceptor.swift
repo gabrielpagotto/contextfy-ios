@@ -10,10 +10,6 @@ import Alamofire
 
 final class AuthInterceptor : RequestInterceptor {
 	
-	private func removeAccessToken() {
-		UserDefaults.standard.removeObject(forKey: "contextfy.access_token")
-	}
-	
 	private func getAccessToken() -> String? {
 		return UserDefaults.standard.string(forKey: "contextfy.access_token")
 	}
@@ -25,11 +21,17 @@ final class AuthInterceptor : RequestInterceptor {
 		}
 		completion(.success(urlRequest))
 	}
-	
-	func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-		if let response = request.task?.response as? HTTPURLResponse {
-			if [401, 500].contains(response.statusCode) { removeAccessToken() }
+}
+
+final class AuthMonitor: EventMonitor {
+	private func removeAccessToken() {
+		UserDefaults.standard.removeObject(forKey: "contextfy.access_token")
+	}
+
+	func requestDidFinish(_ request: Request) {
+		if let statusCode = request.response?.statusCode, statusCode == 401 || statusCode == 500 {
+			print("Intercepted status code \(statusCode) before Alamofire validation")
+			removeAccessToken()
 		}
-		completion(.doNotRetry)
 	}
 }

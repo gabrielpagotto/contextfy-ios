@@ -28,7 +28,7 @@ final private class BaseURLInterceptor: RequestInterceptor {
 }
 
 class ApiClient {
-	static let baseURL = "http://192.168.20.12:3000"
+	static let baseURL = "http://127.0.0.1:3000"
 	
 	static let shared: ApiClient = {
 		let instance = ApiClient()
@@ -40,7 +40,8 @@ class ApiClient {
 	private lazy var session: Session = {
 		let baseURLInterceptor = BaseURLInterceptor(baseURL: ApiClient.baseURL)
 		let authInterceptor = AuthInterceptor()
-		return Session(interceptor: Interceptor(adapters: [baseURLInterceptor, authInterceptor]))
+		let authMonitor = AuthMonitor()
+		return Session(interceptor: Interceptor(adapters: [authInterceptor, baseURLInterceptor]), eventMonitors: [authMonitor])
 	}()
 	
 	func getSession() -> Session { return session }

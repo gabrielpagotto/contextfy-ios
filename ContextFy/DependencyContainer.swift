@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class DependencyContainer : ObservableObject {
-	lazy var session = ApiClient.shared.getSession()
+	let session = ApiClient.shared.getSession()
 	
 	lazy var artistsRepository: ArtistRepository = .init(session: session)
 	lazy var contextRepository: ContextRepository = .init(session: session)
@@ -17,6 +17,7 @@ final class DependencyContainer : ObservableObject {
 	lazy var genderRepository: GenderRepository = .init(session: session)
 	lazy var recommendationRepository: RecommendationRepository = .init(session: session)
 	lazy var ratedTrackRepository: RatedTrackRepository = .init(session: session)
+	lazy var playlistRepository: PlaylistRepository = .init(session: session)
 	
 	
 	lazy var homeViewModel: HomeController = {
@@ -31,5 +32,9 @@ final class DependencyContainer : ObservableObject {
 	
 	lazy var playerViewModel: PlayerViewModel = {
 		return .init(ratedTrackRepository: ratedTrackRepository)
+	}()
+	
+	lazy var playlistsViewModel: PlaylistsViewModel = {
+		return .init(playlistRepository: playlistRepository)
 	}()
 }

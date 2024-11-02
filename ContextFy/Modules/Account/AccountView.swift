@@ -57,6 +57,7 @@ struct AccountView: View {
 					}
 					NavigationLink {
 						PlaylistsView()
+							.environmentObject(dependencyContainer.playlistsViewModel)
 					} label: {
 						Label("Playlists", systemImage: SystemIcons.playlists)
 					}

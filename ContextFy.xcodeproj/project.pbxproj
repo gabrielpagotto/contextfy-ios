@@ -29,6 +29,9 @@
 		E44F07F62CC6137E00FA708F /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44F07F52CC6137E00FA708F /* EmptyView.swift */; };
 		E44F07F82CC618B700FA708F /* ArtistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44F07F72CC618B700FA708F /* ArtistsViewModel.swift */; };
 		E45072912CBDEF6200B8083E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E45072902CBDEF6200B8083E /* Alamofire */; };
+		E46BEDCE2CD5EA32000F5078 /* PlaylistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46BEDCD2CD5EA2C000F5078 /* PlaylistRepository.swift */; };
+		E46BEDD02CD5EB25000F5078 /* PlaylistsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46BEDCF2CD5EB1E000F5078 /* PlaylistsViewModel.swift */; };
+		E46BEDD22CD5EC87000F5078 /* SelectPlaylistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46BEDD12CD5EC87000F5078 /* SelectPlaylistsView.swift */; };
 		E48D46C62CB86AF6003AE862 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46C52CB86AF6003AE862 /* ApiClient.swift */; };
 		E48D46C82CB870C7003AE862 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46C72CB870C7003AE862 /* AuthInterceptor.swift */; };
 		E48D46CB2CB87385003AE862 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D46CA2CB87385003AE862 /* ProfileRepository.swift */; };
@@ -71,6 +74,9 @@
 		E44F07F32CC6123D00FA708F /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		E44F07F52CC6137E00FA708F /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		E44F07F72CC618B700FA708F /* ArtistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsViewModel.swift; sourceTree = "<group>"; };
+		E46BEDCD2CD5EA2C000F5078 /* PlaylistRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRepository.swift; sourceTree = "<group>"; };
+		E46BEDCF2CD5EB1E000F5078 /* PlaylistsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsViewModel.swift; sourceTree = "<group>"; };
+		E46BEDD12CD5EC87000F5078 /* SelectPlaylistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaylistsView.swift; sourceTree = "<group>"; };
 		E48D46C52CB86AF6003AE862 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		E48D46C72CB870C7003AE862 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		E48D46CA2CB87385003AE862 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
@@ -233,7 +239,9 @@
 		E42DAE492BEB165D001ED9A0 /* Playlists */ = {
 			isa = PBXGroup;
 			children = (
+				E46BEDCF2CD5EB1E000F5078 /* PlaylistsViewModel.swift */,
 				E42DAE4A2BEB166E001ED9A0 /* PlaylistsView.swift */,
+				E46BEDD12CD5EC87000F5078 /* SelectPlaylistsView.swift */,
 			);
 			path = Playlists;
 			sourceTree = "<group>";
@@ -251,6 +259,7 @@
 		E48D46C92CB87366003AE862 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E46BEDCD2CD5EA2C000F5078 /* PlaylistRepository.swift */,
 				E423D8332CC733A200E666EA /* RatedTrackRepository.swift */,
 				E4F237202CC5F00F00366732 /* RecommendationRepository.swift */,
 				E49591DD2CC190AE00EB530D /* ContextRepository.swift */,
@@ -292,7 +301,6 @@
 				E41A8C2F2BC5ADDA00FBD971 /* Sources */,
 				E41A8C302BC5ADDA00FBD971 /* Frameworks */,
 				E41A8C312BC5ADDA00FBD971 /* Resources */,
-				E423D82E2CC6B9C000E666EA /* Swift Format */,
 			);
 			buildRules = (
 			);
@@ -357,27 +365,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		E423D82E2CC6B9C000E666EA /* Swift Format */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Swift Format";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat .\nelse\n    echo \"warning: SwiftFormat not installed, run 'brew install swiftformat'\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		E41A8C2F2BC5ADDA00FBD971 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -409,9 +396,12 @@
 				E49591DC2CC186D600EB530D /* LocationManager.swift in Sources */,
 				E423D8342CC733AD00E666EA /* RatedTrackRepository.swift in Sources */,
 				E48D46CB2CB87385003AE862 /* ProfileRepository.swift in Sources */,
+				E46BEDD02CD5EB25000F5078 /* PlaylistsViewModel.swift in Sources */,
 				E44F07F62CC6137E00FA708F /* EmptyView.swift in Sources */,
 				E41A8C562BC5F38800FBD971 /* AuthView.swift in Sources */,
 				E41A8C5C2BC5F93300FBD971 /* AccountView.swift in Sources */,
+				E46BEDD22CD5EC87000F5078 /* SelectPlaylistsView.swift in Sources */,
+				E46BEDCE2CD5EA32000F5078 /* PlaylistRepository.swift in Sources */,
 				E48D46CE2CB874F1003AE862 /* Models.swift in Sources */,
 				E42DAE452BEB09E4001ED9A0 /* FirstArtistSelectionView.swift in Sources */,
 				E49591E02CC19BCE00EB530D /* AddContextView.swift in Sources */,

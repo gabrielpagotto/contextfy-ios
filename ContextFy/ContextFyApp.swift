@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct ContextFyApp: App {
-	var body: some Scene {		
-		let session = ApiClient.shared.getSession()
-		let dependencyContainer = DependencyContainer()
+	var body: some Scene {
+		let dependencyContainer: DependencyContainer = .init()
+		let session = dependencyContainer.session
 		WindowGroup {
 			ContentView()
 				.environmentObject(dependencyContainer)

@@ -9,8 +9,8 @@ import Foundation
 
 struct SptfImage: Decodable, Identifiable, Equatable {
 	let url: String
-	let height: Int
-	let width: Int
+	let height: Int?
+	let width: Int?
 	
 	var id: String { url }
 }
@@ -116,5 +116,19 @@ struct TrackModel: Decodable, Identifiable, Equatable {
 		case images
 		case artists
 		case rate
+	}
+}
+
+struct Playlist: Decodable, Identifiable, Equatable {
+	let id: Int?
+	let sptfPlaylistId: String
+	let name: String
+	let images: [SptfImage]
+	
+	enum CodingKeys: String, CodingKey {
+		case id
+		case sptfPlaylistId = "sptf_playlist_id"
+		case name
+		case images
 	}
 }

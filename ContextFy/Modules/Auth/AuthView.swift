@@ -68,7 +68,8 @@ struct AuthView: View {
 					var imageUrl = ""
 					var iSize = 0
 					for image in profile.images {
-						let nSize = image.width + image.height
+						guard image.width != nil && image.height != nil else { return }
+						let nSize = image.width! + image.height!
 						if nSize > iSize {
 							iSize = nSize
 							imageUrl = image.url
